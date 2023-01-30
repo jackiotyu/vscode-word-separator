@@ -17,10 +17,33 @@
 		"commands": [
 			{
 				"command": "WordSeparator.updateSeparators",
-				"title": "Hello World"
+				"title": "Update Separators"
+			},
+			{
+				"command": "WordSeparator.copySeparators",
+				"title": "Copy Separators"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "separators-explorer",
+					"title": "Separators Explorer",
+					"icon": "$(whole-word)"
+				}
+			]
+		},
+		"views": {
+			"separators-explorer": [
+				{
+					"id": "separatorsManage",
+					"name": "Separators Manage",
+					"contextualTitle": "Package Explorer"
+				}
+			]
+		}
 	},
+	"enabledApiProposals": ["treeItemCheckbox"],
 	"scripts": {
 		"vscode:prepublish": "yarn run package",
 		"compile": "webpack",

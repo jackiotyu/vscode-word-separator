@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 
 class SeparatorConfig {
-    get() {
-        return vscode.workspace.getConfiguration('editor').get('wordSeparators');
+    get(): string {
+        return vscode.workspace.getConfiguration('editor').get('wordSeparators') || '';
     }
     update(separator: string) {
         return vscode.workspace.getConfiguration('editor').update('wordSeparators', separator);

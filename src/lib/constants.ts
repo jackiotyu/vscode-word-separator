@@ -10,3 +10,5 @@ export const DEFAULT_GROUP_SETTING = {
     cn: CN_SEPARATORS,
     custom: CUSTOM_SEPARATORS,
 };
+export const EXTENSION_NAME = 'WordSeparator';
+export const EXTENSION_GROUP = 'WordSeparator.group';
