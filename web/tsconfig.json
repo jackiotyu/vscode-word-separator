@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "rootDirs": [
+      "src",
+      "../src",
+    ],
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env",
+      "jest",
+      "vscode-webview"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types",
+      "../types"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@ext/*": [
+        "../*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "./node_modules/@types",
+    "types/**/*.d.ts",
+    "../types"
+  ],
+}

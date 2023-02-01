@@ -1,6 +1,11 @@
-import { extConfig } from './settingAdaptor';
-import { DEFAULT_GROUP_SETTING } from './constants';
-
-export function getGroup(): GroupType {
-    return (extConfig.get('group') as GroupType) || DEFAULT_GROUP_SETTING;
+/**
+ * 生成id
+ * @returns id
+ */
+export function genID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
 }
