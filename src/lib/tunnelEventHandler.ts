@@ -6,6 +6,7 @@ import {
     WebviewSaveRuleMsg,
     WebviewCopySettingMsg,
     WebviewToggleItemCheckedMsg,
+    WebviewEditItemMsg,
 } from './tunnelEvents';
 import { separatorConfig, getSetting, getActiveSeparators } from './settingUtils';
 import WebviewTunnel from './webviewTunnel';
@@ -20,6 +21,8 @@ export default function tunnelEventHandler(tunnel: WebviewTunnel, msg: WebviewPa
             return handleCopySetting(tunnel, msg);
         case MsgType.TOGGLE_ITEM_CHECKED:
             return handleToggleItemChecked(tunnel, msg);
+        case MsgType.EDIT_ITEM:
+            return handleEditItem(tunnel, msg);
         default:
             break;
     }
@@ -73,4 +76,8 @@ async function handleToggleItemChecked(tunnel: WebviewTunnel, msg: WebviewToggle
         success = false;
     }
     tunnel.send({ ...msg, value: success });
+}
+
+async function handleEditItem(tunnel: WebviewTunnel, msg: WebviewEditItemMsg) {
+    // TODO 编辑配置
 }

@@ -19,6 +19,7 @@ export function getSetting() {
     let group = Object.keys(groupMap).map((key) => ({
         name: key,
         separators: groupMap[key].split(''),
+        isDefault: key === 'default'
     }));
     let rule = getActiveRule();
     return { group, rule };

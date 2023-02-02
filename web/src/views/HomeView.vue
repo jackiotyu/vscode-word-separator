@@ -9,6 +9,7 @@
                 v-for="groupItem in groupList"
                 :key="groupItem.name"
             >
+                <vscode-divider></vscode-divider>
                 <div class="group-name-tab">
                     <vscode-tag class="group-name">{{
                         groupItem.name
@@ -16,7 +17,11 @@
                     <div class="operation-wrap">
                         <vscode-checkbox
                             class="operation"
-                            title="启用/禁用全部"
+                            :title="`${
+                                groupItem.checked || groupItem.indeterminate
+                                    ? '禁用'
+                                    : '启用'
+                            }全部`"
                             :checked="groupItem.checked"
                             :indeterminate="groupItem.indeterminate"
                             @click="toggleSelectAll(groupItem)"
@@ -24,6 +29,12 @@
                         <span
                             class="codicon codicon-edit operation"
                             title="修改配置"
+                            @click="handleEditItem(groupItem)"
+                        ></span>
+                        <span
+                            v-if="!groupItem.isDefault"
+                            class="codicon codicon-remove operation"
+                            title="删除配置"
                         ></span>
                     </div>
                 </div>
@@ -37,22 +48,33 @@
                         >{{ separator }}</vscode-option
                     >
                 </div>
-                <vscode-divider></vscode-divider>
             </div>
         </template>
-
-        <vscode-button
-            class="action-btn"
-            :disabled="loading"
-            @click="handleCopy"
-            >复制配置<span slot="start" class="codicon codicon-copy"></span
-        ></vscode-button>
-        <vscode-button
-            class="action-btn"
-            :disabled="loading"
-            @click="handleRefresh"
-            >添加配置<span slot="start" class="codicon codicon-refresh"></span
-        ></vscode-button>
+        <div class="rule-preview-wrap">
+            <vscode-text-area
+                v-model="settingText"
+                resize="vertical"
+                class="input-rule"
+                readonly
+                :rows="4"
+                :cols="100"
+                >当前规则</vscode-text-area
+            >
+        </div>
+        <div class="action-wrap">
+            <vscode-button
+                class="action-btn"
+                :disabled="loading"
+                @click="handleCopy"
+                >复制配置<span slot="start" class="codicon codicon-copy"></span
+            ></vscode-button>
+            <vscode-button
+                class="action-btn"
+                :disabled="loading"
+                @click="handleRefresh"
+                >添加配置<span slot="start" class="codicon codicon-add"></span
+            ></vscode-button>
+        </div>
     </main>
 </template>
 
@@ -78,14 +100,20 @@ export default {
         let loading = ref<boolean>(true);
 
         let selectedSet = computed(() => new Set([...wordSeparators.value]));
+        let settingText = computed(
+            () =>
+                `"editor.wordSeparators": ${JSON.stringify(
+                    wordSeparators.value
+                )},`
+        );
 
         const extMsgHandler = (msg: ExtPayload) => {
             if (msg.type === 'setting') {
                 let { rule, group } = msg.value;
                 wordSeparators.value = rule;
                 groupList.value = group.map((i) => {
-                    let checkedLength = i.separators.filter((separator) =>
-                        selectedSet.value.has(separator)
+                    let checkedLength = i.separators.filter((s) =>
+                        selectedSet.value.has(s)
                     ).length;
                     let checked = checkedLength === i.separators.length;
                     let indeterminate = !checked && !!checkedLength;
@@ -125,11 +153,12 @@ export default {
                 if (res.value) handleRefresh();
             });
         });
+        const handleEditItem = (groupItem: RuleGroupItem) => {
+            sendMsg({ type: MsgType.EDIT_ITEM, value: groupItem.name });
+        };
 
         onMounted(() => {
-            handleRefresh().then(() => {
-                loading.value = false;
-            });
+            handleRefresh().then(() => (loading.value = false));
             tunnel.on('extMsg', extMsgHandler);
         });
 
@@ -143,8 +172,11 @@ export default {
             loading,
             handleRefresh,
             handleCopy,
+            handleEditItem,
             toggleSelected,
             toggleSelectAll,
+            wordSeparators,
+            settingText,
         };
     },
 };
@@ -209,8 +241,16 @@ export default {
             background: var(--button-primary-background);
         }
     }
+    .rule-preview-wrap {
+        margin-top: 10px;
+    }
     .action-btn {
-        margin-bottom: 10px;
+        margin-bottom: 16px;
+    }
+    .action-wrap {
+        display: flex;
+        flex-direction: column;
+        margin-top: 16px;
     }
 }
 </style>

@@ -9,10 +9,12 @@ import {
     WebviewSaveRuleMsg,
     WebviewCopySettingMsg,
     WebviewToggleItemCheckedMsg,
+    WebviewEditItemMsg,
     ExtSettingMsg,
     ExtSaveRuleMsg,
     ExtCopySettingMsg,
     ExtToggleItemCheckedMsg,
+    ExtEditItemMsg,
 } from '@ext/src/lib/tunnelEvents';
 import { genID } from '@ext/src/lib/utils';
 
@@ -58,6 +60,9 @@ export function sendMsg(
 export function sendMsg(
     message: Pick<WebviewToggleItemCheckedMsg, 'type' | 'value'>
 ): Promise<ExtToggleItemCheckedMsg>;
+export function sendMsg(
+    message: Pick<WebviewEditItemMsg, 'type' | 'value'>
+): Promise<ExtEditItemMsg>;
 export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
     message: U
 ) {
@@ -65,7 +70,7 @@ export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
         const packMsg = { ...message, id: genID() };
         tunnel.emit('sendExt', packMsg as WebviewPayload);
         // 刷新操作不需要监听返回值
-        if (packMsg.type === MsgType.RELOAD) {
+        if ([MsgType.RELOAD, MsgType.EDIT_ITEM].includes(packMsg.type)) {
             return resolve();
         }
         const cb = (data: any) => {
