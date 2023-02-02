@@ -12,6 +12,7 @@ import {
     vsCodeRadioGroup,
     vsCodeRadio,
     vsCodeDivider,
+    vsCodeProgressRing,
 } from '@vscode/webview-ui-toolkit';
 import GlobalSetting from '@/utils/common';
 
@@ -24,7 +25,8 @@ provideVSCodeDesignSystem().register(
     vsCodeTextArea(),
     vsCodeRadioGroup(),
     vsCodeRadio(),
-    vsCodeDivider()
+    vsCodeDivider(),
+    vsCodeProgressRing()
 );
 
 createApp(App).use(GlobalSetting).use(store).use(router).mount('#app');

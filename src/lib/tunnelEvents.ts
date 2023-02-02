@@ -11,6 +11,8 @@ export enum MsgType {
     SAVE_GROUP = 'saveGroup',
     /** 复制配置 */
     COPY_SETTING = 'copySetting',
+    /** 切换选中配置 */
+    TOGGLE_ITEM_CHECKED = 'toggleItemChecked'
 }
 
 // webview进程的type
@@ -30,6 +32,10 @@ export type WebviewSettingMsg = GenPayload<MsgType.SETTING, undefined>;
 export type WebviewSaveRuleMsg = GenPayload<MsgType.SAVE_RULE, string>;
 export type WebviewSaveGroupMsg = GenPayload<MsgType.SAVE_GROUP, GroupListType>;
 export type WebviewCopySettingMsg = GenPayload<MsgType.COPY_SETTING, undefined>;
+export type WebviewToggleItemCheckedMsg = GenPayload<MsgType.TOGGLE_ITEM_CHECKED, {
+    separators: string;
+    checked: boolean;
+}>;
 
 export type ExtSettingMsg = GenPayload<
     MsgType.SETTING,
@@ -41,11 +47,13 @@ export type ExtSettingMsg = GenPayload<
 export type ExtSaveRuleMsg = GenPayload<MsgType.SAVE_RULE, boolean>;
 export type ExtSaveSaveGroupMsg = GenPayload<MsgType.SAVE_GROUP, boolean>;
 export type ExtCopySettingMsg = GenPayload<MsgType.COPY_SETTING, boolean>;
+export type ExtToggleItemCheckedMsg = GenPayload<MsgType.TOGGLE_ITEM_CHECKED, boolean>;
 
 export type WebviewPayload =
     | WebviewReloadMsg
     | WebviewSettingMsg
     | WebviewSaveRuleMsg
     | WebviewSaveGroupMsg
-    | WebviewCopySettingMsg;
-export type ExtPayload = ExtSettingMsg | ExtSaveRuleMsg | ExtSaveSaveGroupMsg | ExtCopySettingMsg;
+    | WebviewCopySettingMsg
+    | WebviewToggleItemCheckedMsg;
+export type ExtPayload = ExtSettingMsg | ExtSaveRuleMsg | ExtSaveSaveGroupMsg | ExtCopySettingMsg | ExtToggleItemCheckedMsg;

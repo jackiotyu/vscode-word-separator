@@ -8,9 +8,11 @@ import {
     WebviewSettingMsg,
     WebviewSaveRuleMsg,
     WebviewCopySettingMsg,
+    WebviewToggleItemCheckedMsg,
     ExtSettingMsg,
     ExtSaveRuleMsg,
     ExtCopySettingMsg,
+    ExtToggleItemCheckedMsg,
 } from '@ext/src/lib/tunnelEvents';
 import { genID } from '@ext/src/lib/utils';
 
@@ -53,6 +55,9 @@ export function sendMsg(
 export function sendMsg(
     message: Pick<WebviewCopySettingMsg, 'type'>
 ): Promise<ExtCopySettingMsg>;
+export function sendMsg(
+    message: Pick<WebviewToggleItemCheckedMsg, 'type' | 'value'>
+): Promise<ExtToggleItemCheckedMsg>;
 export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
     message: U
 ) {

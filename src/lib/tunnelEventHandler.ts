@@ -1,6 +1,13 @@
 import * as vscode from 'vscode';
-import { WebviewPayload, MsgType, WebviewSettingMsg, WebviewSaveRuleMsg, WebviewCopySettingMsg } from './tunnelEvents';
-import { separatorConfig, getSetting } from './settingUtils';
+import {
+    WebviewPayload,
+    MsgType,
+    WebviewSettingMsg,
+    WebviewSaveRuleMsg,
+    WebviewCopySettingMsg,
+    WebviewToggleItemCheckedMsg,
+} from './tunnelEvents';
+import { separatorConfig, getSetting, getActiveSeparators } from './settingUtils';
 import WebviewTunnel from './webviewTunnel';
 
 export default function tunnelEventHandler(tunnel: WebviewTunnel, msg: WebviewPayload) {
@@ -11,6 +18,8 @@ export default function tunnelEventHandler(tunnel: WebviewTunnel, msg: WebviewPa
             return handleSaveRule(tunnel, msg);
         case MsgType.COPY_SETTING:
             return handleCopySetting(tunnel, msg);
+        case MsgType.TOGGLE_ITEM_CHECKED:
+            return handleToggleItemChecked(tunnel, msg);
         default:
             break;
     }
@@ -40,6 +49,27 @@ async function handleCopySetting(tunnel: WebviewTunnel, msg: WebviewCopySettingM
     } catch (error: any) {
         console.log('CopySettingMsg error >>', error);
         vscode.window.showErrorMessage('复制失败', error.message as string);
+        success = false;
+    }
+    tunnel.send({ ...msg, value: success });
+}
+
+async function handleToggleItemChecked(tunnel: WebviewTunnel, msg: WebviewToggleItemCheckedMsg) {
+    let success = true;
+    try {
+        let checked: boolean = msg.value.checked;
+        let separators = separatorConfig.get();
+        let groupSeparatorSet = new Set([...msg.value.separators]);
+        let list = [];
+        if (checked) {
+            list = [...separators, ...groupSeparatorSet];
+        } else {
+            list = [...separators].filter((s) => {
+                return !groupSeparatorSet.has(s);
+            });
+        }
+        await separatorConfig.update([...new Set(list)].join(''));
+    } catch (error: any) {
         success = false;
     }
     tunnel.send({ ...msg, value: success });

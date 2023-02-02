@@ -1,5 +1,6 @@
 export type GroupType = Record<string, string>;
-export type GroupListType = {
+export interface GroupItem {
     name: string;
     separators: string[];
-}[];
+}
+export type GroupListType =  GroupItem[];
