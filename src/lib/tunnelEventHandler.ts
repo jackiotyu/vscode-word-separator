@@ -8,10 +8,13 @@ import {
     WebviewToggleItemCheckedMsg,
     WebviewEditItemMsg,
 } from './tunnelEvents';
-import { separatorConfig, getSetting, getActiveSeparators } from './settingUtils';
+import { separatorConfig, getSetting } from './settingUtils';
 import WebviewTunnel from './webviewTunnel';
 
-export default function tunnelEventHandler(tunnel: WebviewTunnel, msg: WebviewPayload) {
+export default function tunnelEventHandler(
+    tunnel: WebviewTunnel,
+    msg: WebviewPayload
+) {
     switch (msg.type) {
         case MsgType.SETTING:
             return handleSetting(tunnel, msg);
@@ -44,10 +47,15 @@ async function handleSaveRule(tunnel: WebviewTunnel, msg: WebviewSaveRuleMsg) {
     tunnel.send({ ...msg, value: success });
 }
 
-async function handleCopySetting(tunnel: WebviewTunnel, msg: WebviewCopySettingMsg) {
+async function handleCopySetting(
+    tunnel: WebviewTunnel,
+    msg: WebviewCopySettingMsg
+) {
     let success = true;
     try {
-        await vscode.env.clipboard.writeText(`"editor.wordSeparators": ${JSON.stringify(separatorConfig.get())},`);
+        await vscode.env.clipboard.writeText(
+            `"editor.wordSeparators": ${JSON.stringify(separatorConfig.get())},`
+        );
         vscode.window.showInformationMessage('复制成功');
     } catch (error: any) {
         console.log('CopySettingMsg error >>', error);
@@ -57,7 +65,10 @@ async function handleCopySetting(tunnel: WebviewTunnel, msg: WebviewCopySettingM
     tunnel.send({ ...msg, value: success });
 }
 
-async function handleToggleItemChecked(tunnel: WebviewTunnel, msg: WebviewToggleItemCheckedMsg) {
+async function handleToggleItemChecked(
+    tunnel: WebviewTunnel,
+    msg: WebviewToggleItemCheckedMsg
+) {
     let success = true;
     try {
         let checked: boolean = msg.value.checked;

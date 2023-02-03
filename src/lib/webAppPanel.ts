@@ -10,12 +10,14 @@ export class WebViewPanelProvider implements vscode.WebviewViewProvider {
 
     constructor(
         private readonly context: vscode.ExtensionContext,
-        private readonly _extensionUri = context.extensionUri,
+        private readonly _extensionUri = context.extensionUri
     ) {}
 
     reload() {
         if (this.webviewView) {
-            this.webviewView.webview.html = this._getHtmlForWebview(this.webviewView.webview);
+            this.webviewView.webview.html = this._getHtmlForWebview(
+                this.webviewView.webview
+            );
         }
     }
 
@@ -34,10 +36,19 @@ export class WebViewPanelProvider implements vscode.WebviewViewProvider {
     }
 
     private _getHtmlForWebview(webview: vscode.Webview) {
-        const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'reset.css'));
-        const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'vscode.css'));
-        const codiconsUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'codicon.css'));
-        let { scriptUri, scriptVendorUri, styleUri } = getResourceUri(webview, this._extensionUri);
+        const styleResetUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, 'media', 'reset.css')
+        );
+        const styleVSCodeUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, 'media', 'vscode.css')
+        );
+        const codiconsUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, 'media', 'codicon.css')
+        );
+        let { scriptUri, scriptVendorUri, styleUri } = getResourceUri(
+            webview,
+            this._extensionUri
+        );
 
         const baseUri = webview
             .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'dist-web'))
@@ -75,7 +86,10 @@ function getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions {
     return {
         // Enable javascript in the webview
         enableScripts: true,
-        localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media'), vscode.Uri.joinPath(extensionUri, 'dist-web')],
+        localResourceRoots: [
+            vscode.Uri.joinPath(extensionUri, 'media'),
+            vscode.Uri.joinPath(extensionUri, 'dist-web'),
+        ],
     };
 }
 
@@ -97,9 +111,15 @@ function getResourceUri(webview: vscode.Webview, extensionUri: vscode.Uri) {
         scriptVendorUri = `${scriptHost}/dist-web/chunk-vendors.js`;
         styleUri = `${scriptHost}/dist-web/css/main.css`;
     } else {
-        scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'dist-web', 'main.js'));
-        scriptVendorUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'dist-web', 'chunk-vendors.js'));
-        styleUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'dist-web', 'css/main.css'));
+        scriptUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(extensionUri, 'dist-web', 'main.js')
+        );
+        scriptVendorUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(extensionUri, 'dist-web', 'chunk-vendors.js')
+        );
+        styleUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(extensionUri, 'dist-web', 'css/main.css')
+        );
     }
     return {
         scriptUri,

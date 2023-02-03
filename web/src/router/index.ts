@@ -1,11 +1,19 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import EditItem from '../views/EditItem.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        name: 'home',
+        name: 'Home',
         component: HomeView,
+        meta: { transition: 'slide-left', mode: 'in-out' },
+    },
+    {
+        path: '/editItem/:name/:separators',
+        name: 'EditItem',
+        component: EditItem,
+        meta: { transition: 'slide-right', mode: 'out-in' },
     },
 ];
 

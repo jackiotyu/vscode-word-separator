@@ -13,10 +13,10 @@
     "@vscode/webview-ui-toolkit": "^1.1.0",
     "core-js": "^3.8.3",
     "mitt": "^3.0.0",
+    "pinia": "^2.0.30",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",

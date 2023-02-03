@@ -16,6 +16,7 @@
                     }}</vscode-tag>
                     <div class="operation-wrap">
                         <vscode-checkbox
+                            :key="groupItem.key"
                             class="operation"
                             :title="`${
                                 groupItem.checked || groupItem.indeterminate
@@ -71,7 +72,7 @@
             <vscode-button
                 class="action-btn"
                 :disabled="loading"
-                @click="handleRefresh"
+                @click="handleAddItem"
                 >添加配置<span slot="start" class="codicon codicon-add"></span
             ></vscode-button>
         </div>
@@ -79,68 +80,40 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { GroupItem } from '@ext/src/types';
-import { MsgType, ExtPayload } from '@ext/src/lib/tunnelEvents';
-import tunnel, { sendMsg } from '@/utils/tunnel';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { MsgType } from '@ext/src/lib/tunnelEvents';
+import { sendMsg } from '@/utils/tunnel';
 import { throttle } from 'lodash';
-
-interface RuleGroupItem extends GroupItem {
-    checked: boolean;
-    indeterminate: boolean;
-}
-
-type RuleGroupList = RuleGroupItem[];
+import { storeToRefs } from 'pinia';
+import { RuleGroupItem, useGlobalStore } from '@/store/index';
 
 export default {
     name: 'HomeView',
     setup() {
-        let groupList = ref<RuleGroupList>([]);
-        let wordSeparators = ref<string>('');
+        let globalStore = useGlobalStore();
+        const router = useRouter();
+        let { selectedSet, wordSeparators, groupList, settingText } =
+            storeToRefs(globalStore);
         let loading = ref<boolean>(true);
 
-        let selectedSet = computed(() => new Set([...wordSeparators.value]));
-        let settingText = computed(
-            () =>
-                `"editor.wordSeparators": ${JSON.stringify(
-                    wordSeparators.value
-                )},`
-        );
-
-        const extMsgHandler = (msg: ExtPayload) => {
-            if (msg.type === 'setting') {
-                let { rule, group } = msg.value;
-                wordSeparators.value = rule;
-                groupList.value = group.map((i) => {
-                    let checkedLength = i.separators.filter((s) =>
-                        selectedSet.value.has(s)
-                    ).length;
-                    let checked = checkedLength === i.separators.length;
-                    let indeterminate = !checked && !!checkedLength;
-                    return { ...i, checked, indeterminate };
-                });
-            }
-        };
         const handleRefresh = () => {
-            return sendMsg({ type: MsgType.SETTING });
+            return globalStore.refresh();
         };
         const handleCopy = () => {
             sendMsg({ type: MsgType.COPY_SETTING });
         };
+
         const toggleSelected = throttle((separator: string) => {
             let isInclude = selectedSet.value.has(separator);
             let set = new Set(selectedSet.value);
-            if (isInclude) {
-                set.delete(separator);
-            } else {
-                set.add(separator);
-            }
-            sendMsg({ type: MsgType.SAVE_RULE, value: [...set].join('') }).then(
-                (res) => {
-                    res.value && handleRefresh();
-                }
-            );
+            isInclude ? set.delete(separator) : set.add(separator);
+            sendMsg({
+                type: MsgType.SAVE_RULE,
+                value: [...set].join(''),
+            });
         }, 17);
+
         const toggleSelectAll = throttle((groupItem: RuleGroupItem) => {
             let checked = groupItem.checked || groupItem.indeterminate;
             sendMsg({
@@ -149,39 +122,46 @@ export default {
                     checked: !checked,
                     separators: groupItem.separators.join(''),
                 },
-            }).then((res) => {
-                if (res.value) handleRefresh();
             });
-        });
-        const handleEditItem = (groupItem: RuleGroupItem) => {
-            sendMsg({ type: MsgType.EDIT_ITEM, value: groupItem.name });
-        };
+        }, 17);
 
+        const handleEditItem = (groupItem: RuleGroupItem) => {
+            router.push({
+                name: 'EditItem',
+                query: { name: groupItem.name },
+                params: {
+                    name: groupItem.name,
+                    separators: groupItem.separators.join(''),
+                },
+            });
+        };
+        const handleAddItem = () => {
+            router.push({ name: 'EditItem' });
+        };
+        // const handleDeleteItem = () => {
+        //     sendMsg()
+        // }
         onMounted(() => {
             handleRefresh().then(() => (loading.value = false));
-            tunnel.on('extMsg', extMsgHandler);
-        });
-
-        onUnmounted(() => {
-            tunnel.off('extMsg', extMsgHandler);
         });
 
         return {
             groupList,
-            selectedSet,
             loading,
             handleRefresh,
             handleCopy,
             handleEditItem,
+            handleAddItem,
             toggleSelected,
             toggleSelectAll,
             wordSeparators,
+            selectedSet,
             settingText,
         };
     },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main-box {
     width: 100%;
     height: 100%;

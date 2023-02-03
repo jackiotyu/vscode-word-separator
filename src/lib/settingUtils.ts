@@ -6,7 +6,7 @@ export function getGroup(): GroupType {
     return (extConfig.get('group') as GroupType) || DEFAULT_GROUP_SETTING;
 }
 
-export function getActiveSeparators(): Set<string> {
+export function getActiveRuleSet(): Set<string> {
     return new Set([...getActiveRule()]);
 }
 
@@ -19,7 +19,7 @@ export function getSetting() {
     let group = Object.keys(groupMap).map((key) => ({
         name: key,
         separators: groupMap[key].split(''),
-        isDefault: key === 'default'
+        isDefault: key === 'default',
     }));
     let rule = getActiveRule();
     return { group, rule };

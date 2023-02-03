@@ -30,7 +30,7 @@ const tunnel = mitt<Events>();
 // 监听方式：tunnel.on('extMsg', e)
 window.onmessage = (e) => {
     const data = e.data;
-    if (data && 'id' in data && 'type' in data) {
+    if (typeof data === 'object' && 'id' in data && 'type' in data) {
         tunnel.emit('extMsg', e.data);
     }
 };
