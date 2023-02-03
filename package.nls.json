@@ -1,0 +1,5 @@
+{
+    "common.action.confirm": "confirm",
+    "common.action.cancel": "cancel",
+    "event.action.deleteItem.confirm": "Submit delete?"
+}

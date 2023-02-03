@@ -8,15 +8,23 @@ import {
     WebviewSettingMsg,
     WebviewSaveRuleMsg,
     WebviewCopySettingMsg,
+    WebviewCopySeparatorsMsg,
     WebviewToggleItemCheckedMsg,
     WebviewEditItemMsg,
+    WebviewDeleteItemMsg,
+    WebviewAddItemMsg,
     ExtSettingMsg,
     ExtSaveRuleMsg,
     ExtCopySettingMsg,
+    ExtCopySeparatorsMsg,
     ExtToggleItemCheckedMsg,
     ExtEditItemMsg,
+    ExtDeleteItemMsg,
+    ExtAddItemMsg,
 } from '@ext/src/lib/tunnelEvents';
 import { genID } from '@ext/src/lib/utils';
+
+export { MsgType } from '@ext/src/lib/tunnelEvents';
 
 // 规定信息格式
 type Events = {
@@ -58,11 +66,20 @@ export function sendMsg(
     message: Pick<WebviewCopySettingMsg, 'type'>
 ): Promise<ExtCopySettingMsg>;
 export function sendMsg(
+    message: Pick<WebviewCopySeparatorsMsg, 'type'>
+): Promise<ExtCopySeparatorsMsg>;
+export function sendMsg(
     message: Pick<WebviewToggleItemCheckedMsg, 'type' | 'value'>
 ): Promise<ExtToggleItemCheckedMsg>;
 export function sendMsg(
     message: Pick<WebviewEditItemMsg, 'type' | 'value'>
 ): Promise<ExtEditItemMsg>;
+export function sendMsg(
+    message: Pick<WebviewDeleteItemMsg, 'type' | 'value'>
+): Promise<ExtDeleteItemMsg>;
+export function sendMsg(
+    message: Pick<WebviewAddItemMsg, 'type' | 'value'>
+): Promise<ExtAddItemMsg>;
 export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
     message: U
 ) {
@@ -70,7 +87,7 @@ export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
         const packMsg = { ...message, id: genID() };
         tunnel.emit('sendExt', packMsg as WebviewPayload);
         // 刷新操作不需要监听返回值
-        if ([MsgType.RELOAD, MsgType.EDIT_ITEM].includes(packMsg.type)) {
+        if ([MsgType.RELOAD].includes(packMsg.type)) {
             return resolve();
         }
         const cb = (data: any) => {

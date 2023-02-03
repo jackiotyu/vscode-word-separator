@@ -52,15 +52,20 @@
 <script lang="ts">
 import { useRouter, useRoute } from 'vue-router';
 import { ref, watch } from 'vue';
+import { sendMsg, MsgType } from '@/utils/tunnel';
 
 export default {
     setup() {
         let router = useRouter();
         let route = useRoute();
-        let { name: ruleName = '', separators: ruleValue = '' } = route.params;
+        let ruleName = (route.query.name || '') as string;
+        let ruleValue = (route.query.separators || '') as string;
+        let isDefault = !!route.query.isDefault;
+        let id = Number(route.query.id) || undefined;
         let changed = ref<boolean>(false);
-        let formName = ref(ruleName);
-        let formValue = ref(ruleValue);
+        let formName = ref<string>((ruleName as string) || '');
+        let formValue = ref<string>((ruleValue as string) || '');
+        const isAdd = !ruleName;
 
         watch(
             () => [formName.value, formValue.value],
@@ -72,7 +77,26 @@ export default {
         );
 
         const handleSave = () => {
-            console.log('🚀 save >>');
+            let saveValue = {
+                name: formName.value,
+                separators: formValue.value,
+                isDefault,
+                id,
+            };
+            let saveFunc = isAdd
+                ? sendMsg({
+                      type: MsgType.ADD_ITEM,
+                      value: saveValue,
+                  })
+                : sendMsg({
+                      type: MsgType.EDIT_ITEM,
+                      value: saveValue,
+                  });
+            saveFunc.then((res) => {
+                if (res.value) {
+                    router.push({ path: '/' });
+                }
+            });
         };
         const handleReset = () => {
             formName.value = ruleName;

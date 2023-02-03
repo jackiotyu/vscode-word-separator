@@ -3,5 +3,12 @@ export interface GroupItem {
     name: string;
     separators: string[];
     isDefault?: boolean;
+    id?: number;
 }
-export type GroupListType =  GroupItem[];
+export type GroupCloseItem = {
+    name: string;
+    separators: string;
+    isDefault?: boolean;
+    id?: number;
+};
+export type GroupListType = GroupItem[];

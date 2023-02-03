@@ -6,7 +6,6 @@ import { sendMsg } from '@/utils/tunnel';
 export interface RuleGroupItem extends GroupItem {
     checked: boolean;
     indeterminate: boolean;
-    key?: number | string;
 }
 
 export type RuleGroupList = RuleGroupItem[];

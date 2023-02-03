@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-left', mode: 'in-out' },
     },
     {
-        path: '/editItem/:name/:separators',
+        path: '/editItem',
         name: 'EditItem',
         component: EditItem,
         meta: { transition: 'slide-right', mode: 'out-in' },

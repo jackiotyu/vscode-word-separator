@@ -1,4 +1,5 @@
 {
+    "publisher": "jackiotyu",
     "name": "word-separator",
     "displayName": "word-separator",
     "description": "config vscode word separator 配置vscode文字分割符",
@@ -42,6 +43,61 @@
                     "type": "webview"
                 }
             ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "配置word-separator",
+            "properties": {
+                "WordSeparator.group": {
+                    "type": "array",
+                    "default": [
+                        {
+                            "name": "default",
+                            "separators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?"
+                        }
+                    ],
+                    "description": "配置word-separator规则列表",
+                    "items": {
+                        "type": "object",
+                        "title": "分组",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "规则名称"
+                            },
+                            "separators": {
+                                "type": "string",
+                                "description": "规则内容"
+                            },
+                            "isDefault": {
+                                "type": "boolean",
+                                "description": "是否为默认配置（不允许修改）"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "configurationDefaults": {
+            "WordSeparator.group": [
+                {
+                    "name": "default",
+                    "separators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
+                    "isDefault": true
+                },
+                {
+                    "name": "cn separators",
+                    "separators": "。，、；：“”‘’「」—…？！"
+                },
+                {
+                    "name": "link separators",
+                    "separators": ".;/?:@&=+$,"
+                },
+                {
+                    "name": "class separators",
+                    "separators": "-"
+                }
+            ]
         }
     },
     "scripts": {
@@ -64,6 +120,7 @@
         "@typescript-eslint/parser": "^5.27.0",
         "@vscode/test-electron": "^2.1.3",
         "concurrently": "^7.6.0",
+        "cross-env": "^7.0.3",
         "eslint": "^8.16.0",
         "glob": "^8.0.3",
         "mocha": "^10.0.0",
@@ -73,6 +130,7 @@
         "webpack-cli": "^4.9.2"
     },
     "dependencies": {
-        "@vscode/codicons": "^0.0.32"
+        "@types/fs-extra": "^11.0.1",
+        "fs-extra": "^11.1.0"
     }
 }

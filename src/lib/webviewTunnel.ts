@@ -3,6 +3,7 @@ import { EventEmitter } from 'node:events';
 import { ExtPayload, MsgType } from './tunnelEvents';
 import { getSetting } from './settingUtils';
 import { genID } from './utils';
+import { EXTENSION_GROUP } from './constants';
 
 export default class WebviewTunnel extends EventEmitter {
     private _disposables: vscode.Disposable[] = [];
@@ -18,12 +19,15 @@ export default class WebviewTunnel extends EventEmitter {
         this._disposables.push(receiveDisposable);
         this._disposables.push({
             dispose: () => {
-                this.removeAllListeners('message');
+                this.removeAllListeners();
             },
         });
         this._disposables.push(
             vscode.workspace.onDidChangeConfiguration((event) => {
-                if (event.affectsConfiguration('editor.wordSeparators')) {
+                if (
+                    event.affectsConfiguration('editor.wordSeparators') ||
+                    event.affectsConfiguration(EXTENSION_GROUP)
+                ) {
                     this.send({
                         id: genID(),
                         type: MsgType.SETTING,

@@ -11,23 +11,25 @@
             >
                 <vscode-divider></vscode-divider>
                 <div class="group-name-tab">
-                    <vscode-tag class="group-name">{{
-                        groupItem.name
-                    }}</vscode-tag>
+                    <vscode-tag
+                        class="group-name"
+                        :title="groupItem.name"
+                        :class="{ active: groupItem.checked }"
+                        >{{ groupItem.name }}</vscode-tag
+                    >
                     <div class="operation-wrap">
-                        <vscode-checkbox
-                            :key="groupItem.key"
-                            class="operation"
-                            :title="`${
-                                groupItem.checked || groupItem.indeterminate
-                                    ? '禁用'
-                                    : '启用'
-                            }全部`"
-                            :checked="groupItem.checked"
-                            :indeterminate="groupItem.indeterminate"
-                            @click="toggleSelectAll(groupItem)"
-                        ></vscode-checkbox>
                         <span
+                            class="codicon codicon-check operation"
+                            title="启用全部"
+                            @click="handleEnableItem(groupItem)"
+                        ></span>
+                        <span
+                            class="codicon codicon-circle-slash operation"
+                            title="取消全部"
+                            @click="handleDisableItem(groupItem)"
+                        ></span>
+                        <span
+                            v-if="!groupItem.isDefault"
                             class="codicon codicon-edit operation"
                             title="修改配置"
                             @click="handleEditItem(groupItem)"
@@ -36,6 +38,7 @@
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-remove operation"
                             title="删除配置"
+                            @click="handleDeleteItem(groupItem)"
                         ></span>
                     </div>
                 </div>
@@ -46,6 +49,7 @@
                         :selected="selectedSet.has(separator)"
                         v-for="separator in groupItem.separators"
                         :key="separator"
+                        :title="separator"
                         >{{ separator }}</vscode-option
                     >
                 </div>
@@ -63,12 +67,28 @@
             >
         </div>
         <div class="action-wrap">
-            <vscode-button
-                class="action-btn"
-                :disabled="loading"
-                @click="handleCopy"
-                >复制配置<span slot="start" class="codicon codicon-copy"></span
-            ></vscode-button>
+            <div class="action-line">
+                <vscode-button
+                    class="action-btn"
+                    :disabled="loading"
+                    @click="handleCopy"
+                    title="复制当前分隔符配置"
+                    >复制配置<span
+                        slot="start"
+                        class="codicon codicon-copy"
+                    ></span
+                ></vscode-button>
+                <vscode-button
+                    class="action-btn"
+                    :disabled="loading"
+                    @click="handleCopySeparators"
+                    title="复制当前激活的分隔符"
+                    >复制分隔符<span
+                        slot="start"
+                        class="codicon codicon-copy"
+                    ></span
+                ></vscode-button>
+            </div>
             <vscode-button
                 class="action-btn"
                 :disabled="loading"
@@ -103,7 +123,9 @@ export default {
         const handleCopy = () => {
             sendMsg({ type: MsgType.COPY_SETTING });
         };
-
+        const handleCopySeparators = () => {
+            sendMsg({ type: MsgType.COPY_SEPARATORS });
+        };
         const toggleSelected = throttle((separator: string) => {
             let isInclude = selectedSet.value.has(separator);
             let set = new Set(selectedSet.value);
@@ -113,34 +135,43 @@ export default {
                 value: [...set].join(''),
             });
         }, 17);
-
-        const toggleSelectAll = throttle((groupItem: RuleGroupItem) => {
-            let checked = groupItem.checked || groupItem.indeterminate;
-            sendMsg({
-                type: MsgType.TOGGLE_ITEM_CHECKED,
-                value: {
-                    checked: !checked,
-                    separators: groupItem.separators.join(''),
-                },
-            });
-        }, 17);
-
+        const toggleEnableItem = throttle(
+            (checked: boolean, groupItem: RuleGroupItem) => {
+                sendMsg({
+                    type: MsgType.TOGGLE_ITEM_CHECKED,
+                    value: {
+                        checked,
+                        separators: groupItem.separators.join(''),
+                    },
+                });
+            },
+            17
+        );
         const handleEditItem = (groupItem: RuleGroupItem) => {
             router.push({
                 name: 'EditItem',
-                query: { name: groupItem.name },
-                params: {
+                query: {
                     name: groupItem.name,
                     separators: groupItem.separators.join(''),
+                    isDefault: groupItem.isDefault ? 1 : 0,
+                    id: groupItem.id,
                 },
             });
+        };
+        const handleEnableItem = (groupItem: RuleGroupItem) => {
+            !groupItem.checked && toggleEnableItem(true, groupItem);
+        };
+        const handleDisableItem = (groupItem: RuleGroupItem) => {
+            (groupItem.checked || groupItem.indeterminate) &&
+                toggleEnableItem(false, groupItem);
         };
         const handleAddItem = () => {
             router.push({ name: 'EditItem' });
         };
-        // const handleDeleteItem = () => {
-        //     sendMsg()
-        // }
+        const handleDeleteItem = (groupItem: RuleGroupItem) => {
+            let { id, name } = groupItem;
+            sendMsg({ type: MsgType.DELETE_ITEM, value: { id, name } });
+        };
         onMounted(() => {
             handleRefresh().then(() => (loading.value = false));
         });
@@ -148,12 +179,15 @@ export default {
         return {
             groupList,
             loading,
+            handleEnableItem,
+            handleDisableItem,
             handleRefresh,
             handleCopy,
             handleEditItem,
             handleAddItem,
+            handleDeleteItem,
+            handleCopySeparators,
             toggleSelected,
-            toggleSelectAll,
             wordSeparators,
             selectedSet,
             settingText,
@@ -187,8 +221,10 @@ export default {
         display: flex;
         align-items: center;
         flex: 1;
+        overflow: hidden;
     }
     .operation-wrap {
+        flex-shrink: 0;
         flex: 1;
         display: flex;
         align-items: center;
@@ -201,7 +237,14 @@ export default {
         }
     }
     .group-name {
-        flex-shrink: 0;
+        flex: 2;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        &.active {
+            color: var(--list-active-selection-foreground);
+        }
     }
     .option-wrap {
         display: flex;
@@ -231,6 +274,18 @@ export default {
         display: flex;
         flex-direction: column;
         margin-top: 16px;
+    }
+    .action-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-right: -8px;
+        .action-btn {
+            flex: 1;
+            min-width: 114px;
+            margin-right: 8px;
+        }
     }
 }
 </style>

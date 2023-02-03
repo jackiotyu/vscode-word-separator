@@ -48,7 +48,7 @@ tunnel.on('extMsg', (msg) => {
             ).length;
             const checked = checkedLength === i.separators.length;
             const indeterminate = !checked && !!checkedLength;
-            return { ...i, checked, indeterminate, key: +new Date() };
+            return { ...i, checked, indeterminate };
         });
         store.$patch({ groupList });
     }

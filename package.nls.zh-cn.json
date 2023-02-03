@@ -1,0 +1,5 @@
+{
+    "common.action.confirm": "确认",
+    "common.action.cancel": "取消",
+    "event.action.deleteItem.confirm": "确认删除?"
+}
