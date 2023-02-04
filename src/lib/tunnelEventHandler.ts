@@ -112,10 +112,8 @@ async function handleToggleItemChecked(
                 return !groupSeparatorSet.has(s);
             });
         }
-        console.log('🚀 list >>', list);
         await separatorConfig.update([...new Set(list)].join(''));
     } catch (error: any) {
-        console.log('🚀 error >>', error);
         success = false;
     }
     tunnel.send({ ...msg, value: success });

@@ -32,7 +32,7 @@
                 resize="vertical"
                 :rows="4"
                 :cols="100"
-                maxLength="200"
+                maxLength="1000"
                 v-model="formValue"
                 >分隔符</vscode-text-area
             >
@@ -55,6 +55,7 @@ import { ref, watch } from 'vue';
 import { sendMsg, MsgType } from '@/utils/tunnel';
 
 export default {
+    name: 'EditItem',
     setup() {
         let router = useRouter();
         let route = useRoute();
@@ -66,7 +67,6 @@ export default {
         let formName = ref<string>((ruleName as string) || '');
         let formValue = ref<string>((ruleValue as string) || '');
         const isAdd = !ruleName;
-
         watch(
             () => [formName.value, formValue.value],
             ([name, value]) => {

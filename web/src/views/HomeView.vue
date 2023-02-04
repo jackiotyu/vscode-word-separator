@@ -200,7 +200,7 @@ export default {
     width: 100%;
     height: 100%;
     max-width: 500px;
-    min-width: 200px;
+    min-width: 100px;
     margin: 0px auto;
     position: relative;
     display: flex;
@@ -247,14 +247,15 @@ export default {
         }
     }
     .option-wrap {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -8px;
+        display: grid;
+        grid-auto-flow: row dense;
+        grid-gap: 4px 6px;
+        justify-content: space-between;
+        grid-template-columns: repeat(auto-fill, 24px);
+        width: 100%;
     }
     .option-item {
-        margin-right: 8px;
-        margin-bottom: 4px;
-        min-width: 30px;
+        min-width: 24px;
         display: flex;
         justify-content: center;
         align-items: center;
