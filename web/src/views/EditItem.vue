@@ -4,17 +4,15 @@
             <span
                 class="codicon codicon-arrow-left operation"
                 @click="router.push({ path: '/' })"
-                title="返回"
+                :title="$t('action.back')"
             >
             </span>
             <span
                 class="codicon codicon-refresh operation"
                 @click="handleReset"
-                title="重置"
+                :title="$t('action.reset')"
             >
             </span>
-
-            <!-- <vscode-tag>编辑配置</vscode-tag> -->
         </div>
 
         <div class="form-wrap">
@@ -22,19 +20,19 @@
                 class="form-item"
                 size="50"
                 maxLength="30"
-                placeholder="输入配置名称"
+                :placeholder="$t('placeholder.itemName')"
                 v-model="formName"
-                >配置名称</vscode-text-field
+                >{{ $t('form.itemName') }}</vscode-text-field
             >
             <vscode-text-area
                 class="form-item"
-                placeholder="输入分隔符"
+                :placeholder="$t('placeholder.itemValue')"
                 resize="vertical"
                 :rows="4"
                 :cols="100"
                 maxLength="1000"
                 v-model="formValue"
-                >分隔符</vscode-text-area
+                >{{ $t('form.itemValue') }}</vscode-text-area
             >
         </div>
 
@@ -83,6 +81,7 @@ export default {
                 isDefault,
                 id,
             };
+
             let saveFunc = isAdd
                 ? sendMsg({
                       type: MsgType.ADD_ITEM,

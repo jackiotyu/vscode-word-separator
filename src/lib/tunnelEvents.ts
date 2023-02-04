@@ -1,5 +1,7 @@
 // webview与插件进程的事件type，统一管理
 import { GroupCloseItem, GroupListType } from '../types';
+import {} from 'vscode';
+
 export enum MsgType {
     /** 重载页面 */
     RELOAD = 'reload',
@@ -21,6 +23,8 @@ export enum MsgType {
     DELETE_ITEM = 'deleteItem',
     /** 添加配置 */
     ADD_ITEM = 'addItem',
+    /** 语言环境 */
+    LOCALE = 'locale',
 }
 
 // webview进程的type
@@ -32,6 +36,8 @@ export type GenPayload<T extends MsgKey, K> = {
     type: T;
     value: K;
 };
+
+export type LocaleType = 'en' | 'zh-cn';
 
 export type WebviewReloadMsg = GenPayload<MsgType.RELOAD, undefined>;
 export type WebviewSettingMsg = GenPayload<MsgType.SETTING, undefined>;
@@ -55,6 +61,7 @@ export type WebviewDeleteItemMsg = GenPayload<
     MsgType.DELETE_ITEM,
     { name: string; id?: number }
 >;
+export type WebviewLocaleMsg = GenPayload<MsgType.LOCALE, undefined>;
 
 export type ExtSettingMsg = GenPayload<
     MsgType.SETTING,
@@ -74,6 +81,7 @@ export type ExtToggleItemCheckedMsg = GenPayload<
 export type ExtEditItemMsg = GenPayload<MsgType.EDIT_ITEM, boolean>;
 export type ExtDeleteItemMsg = GenPayload<MsgType.DELETE_ITEM, boolean>;
 export type ExtAddItemMsg = GenPayload<MsgType.ADD_ITEM, boolean>;
+export type ExtLocaleMsg = GenPayload<MsgType.LOCALE, LocaleType>;
 
 export type WebviewPayload =
     | WebviewReloadMsg
@@ -85,7 +93,8 @@ export type WebviewPayload =
     | WebviewEditItemMsg
     | WebviewDeleteItemMsg
     | WebviewAddItemMsg
-    | WebviewCopySeparatorsMsg;
+    | WebviewCopySeparatorsMsg
+    | WebviewLocaleMsg;
 export type ExtPayload =
     | ExtSettingMsg
     | ExtSaveRuleMsg
@@ -95,4 +104,5 @@ export type ExtPayload =
     | ExtEditItemMsg
     | ExtDeleteItemMsg
     | ExtAddItemMsg
-    | ExtCopySeparatorsMsg;
+    | ExtCopySeparatorsMsg
+    | ExtLocaleMsg;

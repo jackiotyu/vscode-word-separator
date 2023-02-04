@@ -1,5 +1,7 @@
 {
-    "common.action.confirm": "confirm",
-    "common.action.cancel": "cancel",
-    "event.action.deleteItem.confirm": "Submit delete?"
+    "common.action.confirm": "Confirm",
+    "common.action.cancel": "Cancel",
+    "event.action.deleteItem.confirm": "Submit delete?",
+    "event.action.copy.success": "Copy success",
+    "event.action.copy.fail": "Copy fail"
 }

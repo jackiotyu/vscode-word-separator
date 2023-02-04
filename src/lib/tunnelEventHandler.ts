@@ -10,6 +10,8 @@ import {
     WebviewDeleteItemMsg,
     WebviewAddItemMsg,
     WebviewCopySeparatorsMsg,
+    WebviewLocaleMsg,
+    LocaleType,
 } from './tunnelEvents';
 import {
     separatorConfig,
@@ -43,6 +45,8 @@ export default function tunnelEventHandler(
             return handleDeleteItem(tunnel, msg);
         case MsgType.ADD_ITEM:
             return handleAddItem(tunnel, msg);
+        case MsgType.LOCALE:
+            return handleLocale(tunnel, msg);
         default:
             break;
     }
@@ -70,9 +74,14 @@ async function handleCopySeparators(
     let success = true;
     try {
         await vscode.env.clipboard.writeText(separatorConfig.get());
-        vscode.window.showInformationMessage('复制成功');
+        vscode.window.showInformationMessage(
+            localize('event.action.copy.success')
+        );
     } catch (error: any) {
-        vscode.window.showErrorMessage('复制失败', error.message as string);
+        vscode.window.showErrorMessage(
+            localize('event.action.copy.fail'),
+            error.message as string
+        );
         success = false;
     }
     tunnel.send({ ...msg, value: success });
@@ -87,9 +96,14 @@ async function handleCopySetting(
         await vscode.env.clipboard.writeText(
             `"editor.wordSeparators": ${JSON.stringify(separatorConfig.get())},`
         );
-        vscode.window.showInformationMessage('复制成功');
+        vscode.window.showInformationMessage(
+            localize('event.action.copy.success')
+        );
     } catch (error: any) {
-        vscode.window.showErrorMessage('复制失败', error.message as string);
+        vscode.window.showErrorMessage(
+            localize('event.action.copy.fail'),
+            error.message as string
+        );
         success = false;
     }
     tunnel.send({ ...msg, value: success });
@@ -182,4 +196,8 @@ async function handleDeleteItem(
         success = false;
     }
     tunnel.send({ ...msg, value: success });
+}
+
+function handleLocale(tunnel: WebviewTunnel, msg: WebviewLocaleMsg) {
+    tunnel.send({ ...msg, value: vscode.env.language as LocaleType });
 }

@@ -13,6 +13,7 @@ import {
     WebviewEditItemMsg,
     WebviewDeleteItemMsg,
     WebviewAddItemMsg,
+    WebviewLocaleMsg,
     ExtSettingMsg,
     ExtSaveRuleMsg,
     ExtCopySettingMsg,
@@ -21,6 +22,7 @@ import {
     ExtEditItemMsg,
     ExtDeleteItemMsg,
     ExtAddItemMsg,
+    ExtLocaleMsg,
 } from '@ext/src/lib/tunnelEvents';
 import { genID } from '@ext/src/lib/utils';
 
@@ -80,6 +82,9 @@ export function sendMsg(
 export function sendMsg(
     message: Pick<WebviewAddItemMsg, 'type' | 'value'>
 ): Promise<ExtAddItemMsg>;
+export function sendMsg(
+    message: Pick<WebviewLocaleMsg, 'type'>
+): Promise<ExtLocaleMsg>;
 export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
     message: U
 ) {

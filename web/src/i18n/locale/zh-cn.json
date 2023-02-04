@@ -1,0 +1,28 @@
+{
+    "action": {
+        "enableAll": "启用全部",
+        "cancelAll": "取消全部",
+        "editItem": "修改配置",
+        "deleteItem": "删除配置",
+        "addItem": "添加配置",
+        "copyConfig": "复制配置",
+        "copySeparators": "复制分隔符",
+        "back": "返回",
+        "reset": "重置"
+    },
+    "preview": {
+        "rule": "当前规则"
+    },
+    "explain": {
+        "copyConfig": "复制当前分隔符配置",
+        "copySeparators": "复制当前激活的分隔符"
+    },
+    "form": {
+        "itemName": "配置名称",
+        "itemValue": "分隔符"
+    },
+    "placeholder": {
+        "itemName": "请输入配置名称",
+        "itemValue": "请输入分隔符"
+    }
+}

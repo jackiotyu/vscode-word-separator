@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { GroupItem } from '@ext/src/types';
-import { MsgType } from '@ext/src/lib/tunnelEvents';
+import { MsgType, LocaleType } from '@ext/src/lib/tunnelEvents';
 import { sendMsg } from '@/utils/tunnel';
 
 export interface RuleGroupItem extends GroupItem {
@@ -13,6 +13,7 @@ export type RuleGroupList = RuleGroupItem[];
 interface GlobalState {
     groupList: RuleGroupList;
     wordSeparators: string;
+    locale: LocaleType;
 }
 
 export const useGlobalStore = defineStore('global', {
@@ -20,6 +21,7 @@ export const useGlobalStore = defineStore('global', {
         return {
             groupList: [],
             wordSeparators: '',
+            locale: 'zh-cn',
         };
     },
     actions: {

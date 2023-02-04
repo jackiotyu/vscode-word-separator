@@ -1,0 +1,28 @@
+{
+    "action": {
+        "enableAll": "Enable all",
+        "cancelAll": "Cancel all",
+        "editItem": "Edit item",
+        "deleteItem": "Delete item",
+        "addItem": "Add item",
+        "copyConfig": "Copy config",
+        "copySeparators": "Copy separators",
+        "back": "Back",
+        "reset": "Reset"
+    },
+    "preview": {
+        "rule": "Current rule"
+    },
+    "explain": {
+        "copyConfig": "Copy current rule",
+        "copySeparators": "Copy current active separators"
+    },
+    "form": {
+        "itemName": "name for item",
+        "itemValue": "value for separators"
+    },
+    "placeholder": {
+        "itemName": "Please input name for item",
+        "itemValue": "Please input value for separators"
+    }
+}

@@ -1,5 +1,7 @@
 {
     "common.action.confirm": "确认",
     "common.action.cancel": "取消",
-    "event.action.deleteItem.confirm": "确认删除?"
+    "event.action.deleteItem.confirm": "确认删除?",
+    "event.action.copy.success": "复制成功",
+    "event.action.copy.fail": "复制失败"
 }

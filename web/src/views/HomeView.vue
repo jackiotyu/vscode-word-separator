@@ -3,7 +3,7 @@
         <div class="loading-wrap" v-if="loading">
             <vscode-progress-ring></vscode-progress-ring>
         </div>
-        <template v-else>
+        <div class="rule-list-wrap" v-else>
             <div
                 class="rule-group-item"
                 v-for="groupItem in groupList"
@@ -20,24 +20,24 @@
                     <div class="operation-wrap">
                         <span
                             class="codicon codicon-check operation"
-                            title="启用全部"
+                            :title="$t('action.enableAll')"
                             @click="handleEnableItem(groupItem)"
                         ></span>
                         <span
                             class="codicon codicon-circle-slash operation"
-                            title="取消全部"
+                            :title="$t('action.cancelAll')"
                             @click="handleDisableItem(groupItem)"
                         ></span>
                         <span
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-edit operation"
-                            title="修改配置"
+                            :title="$t('action.editItem')"
                             @click="handleEditItem(groupItem)"
                         ></span>
                         <span
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-remove operation"
-                            title="删除配置"
+                            :title="$t('action.deleteItem')"
                             @click="handleDeleteItem(groupItem)"
                         ></span>
                     </div>
@@ -54,7 +54,7 @@
                     >
                 </div>
             </div>
-        </template>
+        </div>
         <div class="rule-preview-wrap">
             <vscode-text-area
                 v-model="settingText"
@@ -63,7 +63,7 @@
                 readonly
                 :rows="4"
                 :cols="100"
-                >当前规则</vscode-text-area
+                >{{ $t('preview.rule') }}</vscode-text-area
             >
         </div>
         <div class="action-wrap">
@@ -72,28 +72,25 @@
                     class="action-btn"
                     :disabled="loading"
                     @click="handleCopy"
-                    title="复制当前分隔符配置"
-                    >复制配置<span
-                        slot="start"
-                        class="codicon codicon-copy"
-                    ></span
+                    :title="$t('explain.copyConfig')"
+                    >{{ $t('action.copyConfig')
+                    }}<span slot="start" class="codicon codicon-copy"></span
                 ></vscode-button>
                 <vscode-button
                     class="action-btn"
                     :disabled="loading"
                     @click="handleCopySeparators"
-                    title="复制当前激活的分隔符"
-                    >复制分隔符<span
-                        slot="start"
-                        class="codicon codicon-copy"
-                    ></span
+                    :title="$t('explain.copySeparators')"
+                    >{{ $t('action.copySeparators')
+                    }}<span slot="start" class="codicon codicon-copy"></span
                 ></vscode-button>
             </div>
             <vscode-button
                 class="action-btn"
                 :disabled="loading"
                 @click="handleAddItem"
-                >添加配置<span slot="start" class="codicon codicon-add"></span
+                >{{ $t('action.addItem')
+                }}<span slot="start" class="codicon codicon-add"></span
             ></vscode-button>
         </div>
     </main>
@@ -205,12 +202,19 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     .loading-wrap {
         max-height: 350px;
         flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .rule-list-wrap {
+        height: unset;
+        flex-shrink: 1;
+        flex-grow: 0;
+        overflow-y: auto;
     }
     .rule-group-item {
         display: flex;
@@ -263,6 +267,7 @@ export default {
         border-radius: 2px;
         &.selected {
             background: var(--button-primary-background);
+            color: var(--button-primary-foreground);
         }
     }
     .rule-preview-wrap {
@@ -277,15 +282,11 @@ export default {
         margin-top: 16px;
     }
     .action-line {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin-right: -8px;
+        display: grid;
+        grid-column-gap: 4px;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         .action-btn {
-            flex: 1;
-            min-width: 114px;
-            margin-right: 8px;
+            white-space: nowrap;
         }
     }
 }

@@ -16,8 +16,9 @@ import {
     vsCodeTextField,
 } from '@vscode/webview-ui-toolkit';
 import GlobalSetting from '@/utils/common';
-import tunnel from '@/utils/tunnel';
+import tunnel, { MsgType, sendMsg } from '@/utils/tunnel';
 import { useGlobalStore } from '@/store/index';
+import I18n from '@/i18n/index';
 
 // 注册组件
 provideVSCodeDesignSystem().register(
@@ -35,11 +36,19 @@ provideVSCodeDesignSystem().register(
 
 const pinia = createPinia();
 
-createApp(App).use(GlobalSetting).use(pinia).use(router).mount('#app');
+createApp(App)
+    .use(GlobalSetting)
+    .use(pinia)
+    .use(router)
+    .use(I18n)
+    .mount('#app');
 
 const store = useGlobalStore();
+sendMsg({ type: MsgType.LOCALE });
 tunnel.on('extMsg', (msg) => {
-    if (msg.type === 'setting') {
+    if (msg.type === MsgType.LOCALE) {
+        store.$patch({ locale: msg.value });
+    } else if (msg.type === MsgType.SETTING) {
         const { rule: wordSeparators, group } = msg.value;
         store.wordSeparators = wordSeparators;
         const groupList = group.map((i) => {

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { EventEmitter } from 'node:events';
-import { ExtPayload, MsgType } from './tunnelEvents';
+import { ExtPayload, MsgType, LocaleType } from './tunnelEvents';
 import { getSetting } from './settingUtils';
 import { genID } from './utils';
 import { EXTENSION_GROUP } from './constants';

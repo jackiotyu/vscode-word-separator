@@ -10,6 +10,24 @@
     </router-view>
 </template>
 
+<script setup lang="ts">
+import { watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useGlobalStore } from '@/store/index';
+
+let store = useGlobalStore();
+let i18n = useI18n();
+
+watch(
+    () => store.locale,
+    (value) => {
+        console.log('locale change', value);
+        i18n.locale.value = value;
+    },
+    { immediate: true }
+);
+</script>
+
 <style lang="scss">
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -22,7 +40,7 @@ html {
 }
 body {
     height: 98%;
-    background-color: #21252b;
+    background-color: var(--vscode-editor-background);
 }
 nav {
     padding: 30px;
