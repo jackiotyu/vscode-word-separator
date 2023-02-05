@@ -3,5 +3,15 @@
     "common.action.cancel": "Cancel",
     "event.action.deleteItem.confirm": "Submit delete?",
     "event.action.copy.success": "Copy success",
-    "event.action.copy.fail": "Copy fail"
+    "event.action.copy.fail": "Copy fail",
+    "ext.commands.separatorsManage.collapseAll.title": "Collapse all",
+    "ext.commands.separatorsManage.expandAll.title": "Expand all",
+    "ext.viewsContainers.activitybar.title": "Separators Explorer",
+    "ext.views.separators-explorer.title": "Separators Manage",
+    "ext.config.title": "Word Separators config",
+    "ext.config.WordSeparator.group.description": "Config group for Word Separators",
+    "ext.config.WordSeparator.group.items.title": "Group",
+    "ext.config.WordSeparator.group.items.name": "Rule name",
+    "ext.config.WordSeparator.group.items.separators": "Rule content",
+    "ext.config.WordSeparator.group.items.isDefault": "Whether it is the default value, and when it is true, it is not editable"
 }

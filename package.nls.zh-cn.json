@@ -3,5 +3,15 @@
     "common.action.cancel": "取消",
     "event.action.deleteItem.confirm": "确认删除?",
     "event.action.copy.success": "复制成功",
-    "event.action.copy.fail": "复制失败"
+    "event.action.copy.fail": "复制失败",
+    "ext.commands.separatorsManage.collapseAll.title": "折叠全部",
+    "ext.commands.separatorsManage.expandAll.title": "展开全部",
+    "ext.viewsContainers.activitybar.title": "分隔符管理",
+    "ext.views.separators-explorer.title": "分隔符面板",
+    "ext.config.title": "WordSeparator(分隔符)配置",
+    "ext.config.WordSeparator.group.description": "配置WordSeparator(分隔符)规则列表",
+    "ext.config.WordSeparator.group.items.title": "分组",
+    "ext.config.WordSeparator.group.items.name": "规则名称",
+    "ext.config.WordSeparator.group.items.separators": "规则内容",
+    "ext.config.WordSeparator.group.items.isDefault": "是否为默认值,设为 true 时,不可编辑"
 }

@@ -11,7 +11,14 @@ export class WebViewPanelProvider implements vscode.WebviewViewProvider {
     constructor(
         private readonly context: vscode.ExtensionContext,
         private readonly _extensionUri = context.extensionUri
-    ) {}
+    ) {
+        this.context.subscriptions.push(vscode.commands.registerCommand("separatorsManage.collapseAll", () => {
+            this.tunnel?.toggleExpandAll(false);
+        }));
+        this.context.subscriptions.push(vscode.commands.registerCommand("separatorsManage.expandAll", () => {
+            this.tunnel?.toggleExpandAll(true);
+        }));
+    }
 
     reload() {
         if (this.webviewView) {
@@ -26,8 +33,8 @@ export class WebViewPanelProvider implements vscode.WebviewViewProvider {
         webviewView.webview.options = getWebviewOptions(this._extensionUri);
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
         this.tunnel = new WebviewTunnel(this.webviewView);
-        this._disposables.push(...this.tunnel.disposables);
         this.tunnel.onReceive(tunnelEventHandler);
+        this._disposables.push(...this.tunnel.disposables);
         webviewView.onDidDispose(() => {
             this._disposables.forEach((disposable) => disposable.dispose());
             this.webviewView = undefined;

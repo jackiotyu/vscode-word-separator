@@ -1,9 +1,14 @@
 {
     "publisher": "jackiotyu",
     "name": "word-separator",
-    "displayName": "word-separator",
-    "description": "config vscode word separator 配置vscode文字分割符",
+    "displayName": "Word Separator 分隔符配置",
+    "description": "Manage vscode word separators 配置vscode文字分割符",
     "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jackiotyu/vscode-word-separator.git"
+    },
+    "icon": "images/icon.svg",
     "engines": {
         "vscode": "^1.74.0"
     },
@@ -15,12 +20,38 @@
     ],
     "main": "./dist/extension.js",
     "contributes": {
+        "commands": [
+            {
+                "command": "separatorsManage.collapseAll",
+                "title": "%ext.commands.separatorsManage.collapseAll.title%",
+                "icon": "$(collapse-all)"
+            },
+            {
+                "command": "separatorsManage.expandAll",
+                "title": "%ext.commands.separatorsManage.expandAll.title%",
+                "icon": "$(expand-all)"
+            }
+        ],
         "viewsContainers": {
             "activitybar": [
                 {
                     "id": "separators-explorer",
-                    "title": "Separators Explorer",
-                    "icon": "$(whole-word)"
+                    "title": "%ext.viewsContainers.activitybar.title%",
+                    "icon": "images/explorer.svg"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "separatorsManage.collapseAll",
+                    "when": "view == separatorsManage",
+                    "group": "navigation"
+                },
+                {
+                    "command": "separatorsManage.expandAll",
+                    "when": "view == separatorsManage",
+                    "group": "navigation"
                 }
             ]
         },
@@ -28,15 +59,14 @@
             "separators-explorer": [
                 {
                     "id": "separatorsManage",
-                    "name": "Separators Manage",
-                    "contextualTitle": "Package Explorer",
+                    "name": "%ext.views.separators-explorer.title%",
                     "type": "webview"
                 }
             ]
         },
         "configuration": {
             "type": "object",
-            "title": "配置word-separator",
+            "title": "%ext.config.title%",
             "properties": {
                 "WordSeparator.group": {
                     "type": "array",
@@ -46,22 +76,22 @@
                             "separators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?"
                         }
                     ],
-                    "description": "配置word-separator规则列表",
+                    "description": "%ext.config.WordSeparator.group.description%",
                     "items": {
                         "type": "object",
-                        "title": "分组",
+                        "title": "%ext.config.WordSeparator.group.items.title%",
                         "properties": {
                             "name": {
                                 "type": "string",
-                                "description": "规则名称"
+                                "description": "%ext.config.WordSeparator.group.items.name%"
                             },
                             "separators": {
                                 "type": "string",
-                                "description": "规则内容"
+                                "description": "%ext.config.WordSeparator.group.items.separators%"
                             },
                             "isDefault": {
                                 "type": "boolean",
-                                "description": "是否为默认配置（不允许修改）"
+                                "description": "%ext.config.WordSeparator.group.items.isDefault%"
                             }
                         }
                     }

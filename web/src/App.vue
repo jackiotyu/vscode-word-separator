@@ -37,10 +37,14 @@ watch(
 }
 html {
     height: 100%;
+    padding: 0;
+    margin: 0;
 }
 body {
     height: 98%;
     background-color: var(--vscode-editor-background);
+    padding: 0;
+    margin: 0;
 }
 nav {
     padding: 30px;

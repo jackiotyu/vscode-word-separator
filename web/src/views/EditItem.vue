@@ -123,13 +123,34 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
+    padding: 0 8px;
+    box-sizing: border-box;
 }
 
 .header-wrap {
     display: flex;
     justify-content: space-between;
+    color: var(--vscode-sideBarSectionHeader-foreground);
+    background-color: var(--vscode-sideBarSectionHeader-background);
+    border-top: 1px solid var(--vscode-sideBarSectionHeader-border);
+    &:focus {
+        outline-width: 1px;
+        outline-style: solid;
+        outline-offset: -1px;
+        outline-color: var(--vscode-focusBorder);
+        opacity: 1;
+    }
     .operation:not(:last-child) {
         margin-right: 8px;
+    }
+    .operation {
+        padding: 4px;
+        border-radius: 4px;
+        &:hover {
+            outline: 1px dashed var(--vscode-toolbar-hoverOutline);
+            outline-offset: -1px;
+            background-color: var(--vscode-toolbar-hoverBackground);
+        }
     }
 }
 
@@ -139,7 +160,7 @@ export default {
 
 .form-wrap,
 .action-wrap {
-    margin-top: 16px;
+    margin-top: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;

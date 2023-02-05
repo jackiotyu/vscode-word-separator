@@ -27,16 +27,6 @@
                     >
                     <div class="operation-wrap">
                         <span
-                            class="codicon codicon-check operation"
-                            :title="$t('action.enableAll')"
-                            @click.stop="handleEnableItem(groupItem)"
-                        ></span>
-                        <span
-                            class="codicon codicon-circle-slash operation"
-                            :title="$t('action.cancelAll')"
-                            @click.stop="handleDisableItem(groupItem)"
-                        ></span>
-                        <span
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-edit operation"
                             :title="$t('action.editItem')"
@@ -47,6 +37,16 @@
                             class="codicon codicon-remove operation"
                             :title="$t('action.deleteItem')"
                             @click.stop="handleDeleteItem(groupItem, index)"
+                        ></span>
+                        <span
+                            class="codicon codicon-check operation"
+                            :title="$t('action.enableAll')"
+                            @click.stop="handleEnableItem(groupItem)"
+                        ></span>
+                        <span
+                            class="codicon codicon-circle-slash operation"
+                            :title="$t('action.cancelAll')"
+                            @click.stop="handleDisableItem(groupItem)"
                         ></span>
                     </div>
                 </div>
@@ -105,10 +105,10 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, onMounted, watch } from 'vue';
+import { reactive, ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { MsgType } from '@ext/src/lib/tunnelEvents';
-import { sendMsg } from '@/utils/tunnel';
+import { MsgType, ExtPayload } from '@ext/src/lib/tunnelEvents';
+import tunnel, { sendMsg } from '@/utils/tunnel';
 import { throttle } from 'lodash';
 import { storeToRefs } from 'pinia';
 import { RuleGroupItem, useGlobalStore } from '@/store/index';
@@ -196,11 +196,25 @@ export default {
                 }
             );
         };
+        const handleToggleExpandAll = (expand = false) => {
+            openList = openList.fill(expand);
+        };
+
+        const msgHandler = (msg: ExtPayload) => {
+            if (msg.type === MsgType.TOGGLE_EXPAND) {
+                handleToggleExpandAll(msg.value);
+            }
+        };
+
         onMounted(() => {
             handleRefresh().then(() => (loading.value = false));
             setTimeout(() => {
                 canShow.value = true;
             }, 17);
+            tunnel.on('extMsg', msgHandler);
+        });
+        onBeforeUnmount(() => {
+            tunnel.off('extMsg', msgHandler);
         });
 
         return {
@@ -258,6 +272,19 @@ export default {
         align-items: center;
         flex: 1;
         overflow: hidden;
+        padding-right: 8px;
+        box-sizing: border-box;
+        line-height: 22px;
+        color: var(--vscode-sideBarSectionHeader-foreground);
+        background-color: var(--vscode-sideBarSectionHeader-background);
+        border-top: 1px solid var(--vscode-sideBarSectionHeader-border);
+        &:focus {
+            outline-width: 1px;
+            outline-style: solid;
+            outline-offset: -1px;
+            outline-color: var(--vscode-focusBorder);
+            opacity: 1;
+        }
     }
     .operation-wrap {
         flex-shrink: 0;
@@ -267,8 +294,15 @@ export default {
         justify-content: flex-end;
         .operation {
             cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
             &:not(:last-child) {
-                margin-right: 6px;
+                margin-right: 2px;
+            }
+            &:hover {
+                outline: 1px dashed var(--vscode-toolbar-hoverOutline);
+                outline-offset: -1px;
+                background-color: var(--vscode-toolbar-hoverBackground);
             }
         }
     }
@@ -311,6 +345,8 @@ export default {
     }
     .rule-preview-wrap {
         margin-top: 10px;
+        padding: 0 8px;
+        box-sizing: border-box;
     }
     .action-btn {
         margin-bottom: 16px;
@@ -319,6 +355,8 @@ export default {
         display: flex;
         flex-direction: column;
         margin-top: 16px;
+        padding: 0 8px;
+        box-sizing: border-box;
     }
     .action-line {
         display: grid;

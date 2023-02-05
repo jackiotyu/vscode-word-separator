@@ -46,4 +46,7 @@ export default class WebviewTunnel extends EventEmitter {
     onReceive(callback: (...args: any[]) => void) {
         this.on('message', callback);
     }
+    toggleExpandAll(expand = false) {
+        this.send({ id: genID(), type: MsgType.TOGGLE_EXPAND, value: expand });
+    }
 }

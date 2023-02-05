@@ -25,6 +25,7 @@ export enum MsgType {
     ADD_ITEM = 'addItem',
     /** 语言环境 */
     LOCALE = 'locale',
+    TOGGLE_EXPAND = 'toggleExpand'
 }
 
 // webview进程的type
@@ -82,6 +83,7 @@ export type ExtEditItemMsg = GenPayload<MsgType.EDIT_ITEM, boolean>;
 export type ExtDeleteItemMsg = GenPayload<MsgType.DELETE_ITEM, boolean>;
 export type ExtAddItemMsg = GenPayload<MsgType.ADD_ITEM, boolean>;
 export type ExtLocaleMsg = GenPayload<MsgType.LOCALE, LocaleType>;
+export type TOGGLE_EXPAND = GenPayload<MsgType.TOGGLE_EXPAND, boolean>;
 
 export type WebviewPayload =
     | WebviewReloadMsg
@@ -105,4 +107,5 @@ export type ExtPayload =
     | ExtDeleteItemMsg
     | ExtAddItemMsg
     | ExtCopySeparatorsMsg
-    | ExtLocaleMsg;
+    | ExtLocaleMsg
+    | TOGGLE_EXPAND;
