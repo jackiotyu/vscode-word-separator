@@ -1,5 +1,5 @@
 <template>
-    <main class="main-box">
+    <main class="main-box" v-if="canShow">
         <div class="loading-wrap" v-if="loading">
             <vscode-progress-ring></vscode-progress-ring>
         </div>
@@ -10,7 +10,7 @@
                 :key="groupItem.name"
             >
                 <vscode-divider></vscode-divider>
-                <div class="group-name-tab">
+                <div class="group-name-tab" @click="changeOpen(index)">
                     <span
                         class="codicon"
                         :class="[
@@ -18,7 +18,6 @@
                                 ? 'codicon-chevron-down'
                                 : 'codicon-chevron-right',
                         ]"
-                        @click="changeOpen(index)"
                     ></span>
                     <vscode-tag
                         class="group-name"
@@ -30,33 +29,28 @@
                         <span
                             class="codicon codicon-check operation"
                             :title="$t('action.enableAll')"
-                            @click="handleEnableItem(groupItem)"
+                            @click.stop="handleEnableItem(groupItem)"
                         ></span>
                         <span
                             class="codicon codicon-circle-slash operation"
                             :title="$t('action.cancelAll')"
-                            @click="handleDisableItem(groupItem)"
+                            @click.stop="handleDisableItem(groupItem)"
                         ></span>
                         <span
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-edit operation"
                             :title="$t('action.editItem')"
-                            @click="handleEditItem(groupItem)"
+                            @click.stop="handleEditItem(groupItem)"
                         ></span>
                         <span
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-remove operation"
                             :title="$t('action.deleteItem')"
-                            @click="handleDeleteItem(groupItem, index)"
+                            @click.stop="handleDeleteItem(groupItem, index)"
                         ></span>
                     </div>
                 </div>
-                <div
-                    class="option-wrap"
-                    :class="{
-                        open: openList[index],
-                    }"
-                >
+                <div class="option-wrap" v-if="openList[index]">
                     <vscode-option
                         class="option-item"
                         @click="toggleSelected(separator)"
@@ -111,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, onMounted } from 'vue';
+import { reactive, ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { MsgType } from '@ext/src/lib/tunnelEvents';
 import { sendMsg } from '@/utils/tunnel';
@@ -123,11 +117,21 @@ export default {
     name: 'HomeView',
     setup() {
         let globalStore = useGlobalStore();
+        let canShow = ref(false);
         const router = useRouter();
         let { selectedSet, wordSeparators, groupList, settingText } =
             storeToRefs(globalStore);
         //
         let openList = reactive(Array(groupList.value.length).fill(true));
+        watch(
+            () => groupList.value,
+            () => {
+                let diff = groupList.value.length - openList.length;
+                if (diff) {
+                    openList.push(...Array(diff).fill(true));
+                }
+            }
+        );
         let loading = ref<boolean>(true);
         const handleRefresh = () => {
             return globalStore.refresh();
@@ -164,7 +168,7 @@ export default {
             17
         );
         const handleEditItem = (groupItem: RuleGroupItem) => {
-            router.push({
+            router.replace({
                 name: 'EditItem',
                 query: {
                     name: groupItem.name,
@@ -182,7 +186,7 @@ export default {
                 toggleEnableItem(false, groupItem);
         };
         const handleAddItem = () => {
-            router.push({ name: 'EditItem' });
+            router.replace({ name: 'EditItem' });
         };
         const handleDeleteItem = (groupItem: RuleGroupItem, index: number) => {
             let { id, name } = groupItem;
@@ -194,9 +198,13 @@ export default {
         };
         onMounted(() => {
             handleRefresh().then(() => (loading.value = false));
+            setTimeout(() => {
+                canShow.value = true;
+            }, 17);
         });
 
         return {
+            canShow,
             groupList,
             loading,
             openList,
@@ -246,7 +254,6 @@ export default {
         flex-direction: column;
     }
     .group-name-tab {
-        margin-bottom: 10px;
         display: flex;
         align-items: center;
         flex: 1;
@@ -272,6 +279,8 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         margin-left: 5px;
+        user-select: none;
+        cursor: pointer;
         &.active {
             color: var(--list-active-selection-foreground);
         }
@@ -283,12 +292,10 @@ export default {
         justify-content: space-between;
         grid-template-columns: repeat(auto-fill, 24px);
         width: 100%;
-        height: 0px;
-        transition: all 0.6s ease;
         overflow: hidden;
-        &.open {
-            height: auto;
-        }
+        background-color: var(--dropdown-background);
+        padding: 10px;
+        box-sizing: border-box;
     }
     .option-item {
         min-width: 24px;

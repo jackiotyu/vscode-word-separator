@@ -15,16 +15,6 @@
     ],
     "main": "./dist/extension.js",
     "contributes": {
-        "commands": [
-            {
-                "command": "WordSeparator.updateSeparators",
-                "title": "Update Separators"
-            },
-            {
-                "command": "WordSeparator.copySeparators",
-                "title": "Copy Separators"
-            }
-        ],
         "viewsContainers": {
             "activitybar": [
                 {
