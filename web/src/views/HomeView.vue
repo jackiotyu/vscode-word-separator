@@ -6,11 +6,20 @@
         <div class="rule-list-wrap" v-else>
             <div
                 class="rule-group-item"
-                v-for="groupItem in groupList"
+                v-for="(groupItem, index) of groupList"
                 :key="groupItem.name"
             >
                 <vscode-divider></vscode-divider>
                 <div class="group-name-tab">
+                    <span
+                        class="codicon"
+                        :class="[
+                            openList[index]
+                                ? 'codicon-chevron-down'
+                                : 'codicon-chevron-right',
+                        ]"
+                        @click="changeOpen(index)"
+                    ></span>
                     <vscode-tag
                         class="group-name"
                         :title="groupItem.name"
@@ -38,11 +47,16 @@
                             v-if="!groupItem.isDefault"
                             class="codicon codicon-remove operation"
                             :title="$t('action.deleteItem')"
-                            @click="handleDeleteItem(groupItem)"
+                            @click="handleDeleteItem(groupItem, index)"
                         ></span>
                     </div>
                 </div>
-                <div class="option-wrap">
+                <div
+                    class="option-wrap"
+                    :class="{
+                        open: openList[index],
+                    }"
+                >
                     <vscode-option
                         class="option-item"
                         @click="toggleSelected(separator)"
@@ -97,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { MsgType } from '@ext/src/lib/tunnelEvents';
 import { sendMsg } from '@/utils/tunnel';
@@ -112,8 +126,9 @@ export default {
         const router = useRouter();
         let { selectedSet, wordSeparators, groupList, settingText } =
             storeToRefs(globalStore);
+        //
+        let openList = reactive(Array(groupList.value.length).fill(true));
         let loading = ref<boolean>(true);
-
         const handleRefresh = () => {
             return globalStore.refresh();
         };
@@ -122,6 +137,10 @@ export default {
         };
         const handleCopySeparators = () => {
             sendMsg({ type: MsgType.COPY_SEPARATORS });
+        };
+        const changeOpen = (index: number) => {
+            let value = openList[index];
+            openList[index] = !value;
         };
         const toggleSelected = throttle((separator: string) => {
             let isInclude = selectedSet.value.has(separator);
@@ -165,9 +184,13 @@ export default {
         const handleAddItem = () => {
             router.push({ name: 'EditItem' });
         };
-        const handleDeleteItem = (groupItem: RuleGroupItem) => {
+        const handleDeleteItem = (groupItem: RuleGroupItem, index: number) => {
             let { id, name } = groupItem;
-            sendMsg({ type: MsgType.DELETE_ITEM, value: { id, name } });
+            sendMsg({ type: MsgType.DELETE_ITEM, value: { id, name } }).then(
+                (res) => {
+                    if (res.value) openList.splice(index, 1);
+                }
+            );
         };
         onMounted(() => {
             handleRefresh().then(() => (loading.value = false));
@@ -176,6 +199,8 @@ export default {
         return {
             groupList,
             loading,
+            openList,
+            changeOpen,
             handleEnableItem,
             handleDisableItem,
             handleRefresh,
@@ -246,6 +271,7 @@ export default {
         word-break: keep-all;
         white-space: nowrap;
         overflow: hidden;
+        margin-left: 5px;
         &.active {
             color: var(--list-active-selection-foreground);
         }
@@ -257,6 +283,12 @@ export default {
         justify-content: space-between;
         grid-template-columns: repeat(auto-fill, 24px);
         width: 100%;
+        height: 0px;
+        transition: all 0.6s ease;
+        overflow: hidden;
+        &.open {
+            height: auto;
+        }
     }
     .option-item {
         min-width: 24px;
