@@ -65,7 +65,7 @@
         </div>
         <div class="rule-preview-wrap">
             <vscode-text-area
-                v-model="settingText"
+                :value="settingText"
                 resize="vertical"
                 class="input-rule"
                 readonly
