@@ -16,7 +16,7 @@ export const DEFAULT_GROUP_SETTING = [
         separators: CN_SEPARATORS,
     },
     {
-        name: localize('ext.config.defaults.WordSeparator.group.linkSeparators'),
+        name: localize('ext.config.defaults.WordSeparator.group.urlSeparators'),
         separators: LINK_SEPARATORS,
     },
 ];

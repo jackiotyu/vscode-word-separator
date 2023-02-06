@@ -70,5 +70,6 @@ module.exports = defineConfig({
                 '@ext': path.resolve(__dirname, '..'),
             },
         },
+        devtool: isDev ? 'nosources-source-map' : false,
     },
 });

@@ -3,6 +3,7 @@
 'use strict';
 
 const path = require('path');
+const isDev = process.env.NODE_ENV !== "production";
 
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
@@ -40,7 +41,7 @@ const extensionConfig = {
       }
     ]
   },
-  devtool: 'nosources-source-map',
+  devtool: isDev ? 'nosources-source-map': false,
   infrastructureLogging: {
     level: "log", // enables logging required for problem matchers
   },

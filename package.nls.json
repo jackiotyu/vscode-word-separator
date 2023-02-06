@@ -13,5 +13,8 @@
     "ext.config.WordSeparator.group.items.title": "Group",
     "ext.config.WordSeparator.group.items.name": "Rule name",
     "ext.config.WordSeparator.group.items.separators": "Rule content",
-    "ext.config.WordSeparator.group.items.isDefault": "Whether it is the default value, and when it is true, it is not editable"
+    "ext.config.WordSeparator.group.items.isDefault": "Whether it is the default value, and when it is true, it is not editable",
+    "ext.config.defaults.WordSeparator.group.default": "default",
+    "ext.config.defaults.WordSeparator.group.cnSeparators": "CN separators",
+    "ext.config.defaults.WordSeparator.group.urlSeparators": "Url separators"
 }

@@ -8,7 +8,7 @@
         "type": "git",
         "url": "https://github.com/jackiotyu/vscode-word-separator.git"
     },
-    "icon": "images/icon.svg",
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.74.0"
     },
@@ -110,7 +110,7 @@
                     "separators": "。，、；：“”‘’「」—…？！"
                 },
                 {
-                    "name": "%ext.config.defaults.WordSeparator.group.linkSeparators%",
+                    "name": "%ext.config.defaults.WordSeparator.group.urlSeparators%",
                     "separators": ".;/?:@&=+$,"
                 }
             ]
