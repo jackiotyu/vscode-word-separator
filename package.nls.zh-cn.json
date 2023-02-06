@@ -13,5 +13,8 @@
     "ext.config.WordSeparator.group.items.title": "分组",
     "ext.config.WordSeparator.group.items.name": "规则名称",
     "ext.config.WordSeparator.group.items.separators": "规则内容",
-    "ext.config.WordSeparator.group.items.isDefault": "是否为默认值,设为 true 时,不可编辑"
+    "ext.config.WordSeparator.group.items.isDefault": "是否为默认值,设为 true 时,不可编辑",
+    "ext.config.defaults.WordSeparator.group.default": "默认分隔符",
+    "ext.config.defaults.WordSeparator.group.cnSeparators": "中文分隔符",
+    "ext.config.defaults.WordSeparator.group.linkSeparators": "网络链接符号"
 }

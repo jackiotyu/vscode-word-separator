@@ -1,6 +1,26 @@
 import { extConfig, separatorConfig } from './settingAdaptor';
-import { DEFAULT_GROUP_SETTING, DEFAULT_SEPARATORS } from './constants';
+import { DEFAULT_SEPARATORS, CN_SEPARATORS, LINK_SEPARATORS } from './constants';
 import { GroupCloseItem, GroupListType } from '../types';
+import localize from './localize';
+
+
+// 默认分组
+export const DEFAULT_GROUP_SETTING = [
+    {
+        name: localize('ext.config.defaults.WordSeparator.group.default'),
+        separators: DEFAULT_SEPARATORS,
+        isDefault: true,
+    },
+    {
+        name: localize('ext.config.defaults.WordSeparator.group.cnSeparators'),
+        separators: CN_SEPARATORS,
+    },
+    {
+        name: localize('ext.config.defaults.WordSeparator.group.linkSeparators'),
+        separators: LINK_SEPARATORS,
+    },
+];
+
 
 export function getCloseGroup(): GroupCloseItem[] {
     let list = extConfig.get('group') || DEFAULT_GROUP_SETTING;

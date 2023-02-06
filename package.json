@@ -101,21 +101,17 @@
         "configurationDefaults": {
             "WordSeparator.group": [
                 {
-                    "name": "default",
+                    "name": "%ext.config.defaults.WordSeparator.group.default%",
                     "separators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
                     "isDefault": true
                 },
                 {
-                    "name": "cn separators",
+                    "name": "%ext.config.defaults.WordSeparator.group.cnSeparators%",
                     "separators": "。，、；：“”‘’「」—…？！"
                 },
                 {
-                    "name": "link separators",
+                    "name": "%ext.config.defaults.WordSeparator.group.linkSeparators%",
                     "separators": ".;/?:@&=+$,"
-                },
-                {
-                    "name": "class separators",
-                    "separators": "-"
                 }
             ]
         }
