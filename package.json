@@ -1,7 +1,7 @@
 {
     "publisher": "jackiotyu",
     "name": "word-separator",
-    "displayName": "Word Separator 分隔符配置",
+    "displayName": "Word Separator Manage 分隔符配置",
     "description": "Manage vscode word separators 配置vscode文字分割符",
     "version": "0.0.1",
     "repository": {
