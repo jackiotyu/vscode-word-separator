@@ -6,6 +6,7 @@
         "deleteItem": "Delete item",
         "addItem": "Add item",
         "copyConfig": "Copy config",
+        "saveConfig": "Save config",
         "copySeparators": "Copy separators",
         "back": "Back",
         "reset": "Reset"

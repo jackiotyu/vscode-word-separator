@@ -5,14 +5,14 @@ Easily toggle and manage vscode word separator
 
 ***
 
-![](images/dash-separators.gif)
+![dash-separators](images/dash-separators.gif)
 
 - Toggle dash to select text
 - 切换横杠选中效果
 
 ***
 
-![](images/cn-separators.gif)
+![cn-separators](images/cn-separators.gif){:height="100px" width="100px"}
 
 - Toggle Chinese separators to select text
 - 切换中文分隔符选中效果

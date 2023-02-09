@@ -6,6 +6,7 @@
         "deleteItem": "删除配置",
         "addItem": "添加配置",
         "copyConfig": "复制配置",
+        "saveConfig": "保存配置",
         "copySeparators": "复制分隔符",
         "back": "返回",
         "reset": "重置"

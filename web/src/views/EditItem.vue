@@ -41,7 +41,8 @@
                 class="action-btn"
                 :disabled="!changed"
                 @click="handleSave"
-                >保存配置<span slot="start" class="codicon codicon-save"></span
+                >{{ $t('action.saveConfig')
+                }}<span slot="start" class="codicon codicon-save"></span
             ></vscode-button>
         </div>
     </main>

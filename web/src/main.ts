@@ -2,37 +2,10 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
-import {
-    provideVSCodeDesignSystem,
-    vsCodeButton,
-    vsCodeCheckbox,
-    vsCodeDropdown,
-    vsCodeOption,
-    vsCodeTextArea,
-    vsCodeRadioGroup,
-    vsCodeRadio,
-    vsCodeDivider,
-    vsCodeProgressRing,
-    vsCodeTextField,
-} from '@vscode/webview-ui-toolkit';
 import GlobalSetting from '@/utils/common';
 import tunnel, { MsgType, sendMsg } from '@/utils/tunnel';
 import { useGlobalStore } from '@/store/index';
 import I18n from '@/i18n/index';
-
-// 注册组件
-provideVSCodeDesignSystem().register(
-    vsCodeButton(),
-    vsCodeCheckbox(),
-    vsCodeDropdown(),
-    vsCodeOption(),
-    vsCodeTextArea(),
-    vsCodeRadioGroup(),
-    vsCodeRadio(),
-    vsCodeDivider(),
-    vsCodeProgressRing(),
-    vsCodeTextField()
-);
 
 const pinia = createPinia();
 

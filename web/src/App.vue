@@ -14,6 +14,33 @@
 import { watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useGlobalStore } from '@/store/index';
+import {
+    provideVSCodeDesignSystem,
+    vsCodeButton,
+    vsCodeCheckbox,
+    vsCodeDropdown,
+    vsCodeOption,
+    vsCodeTextArea,
+    vsCodeRadioGroup,
+    vsCodeRadio,
+    vsCodeDivider,
+    vsCodeProgressRing,
+    vsCodeTextField,
+} from '@vscode/webview-ui-toolkit';
+
+// 注册组件
+provideVSCodeDesignSystem().register(
+    vsCodeButton(),
+    vsCodeCheckbox(),
+    vsCodeDropdown(),
+    vsCodeOption(),
+    vsCodeTextArea(),
+    vsCodeRadioGroup(),
+    vsCodeRadio(),
+    vsCodeDivider(),
+    vsCodeProgressRing(),
+    vsCodeTextField()
+);
 
 let store = useGlobalStore();
 let i18n = useI18n();
