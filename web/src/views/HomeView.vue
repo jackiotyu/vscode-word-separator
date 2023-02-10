@@ -1,5 +1,5 @@
 <template>
-    <main class="main-box" v-if="canShow">
+    <main class="main-box">
         <div class="loading-wrap" v-if="loading">
             <vscode-progress-ring></vscode-progress-ring>
         </div>
@@ -117,7 +117,6 @@ export default {
     name: 'HomeView',
     setup() {
         let globalStore = useGlobalStore();
-        let canShow = ref(false);
         const router = useRouter();
         let { selectedSet, wordSeparators, groupList, settingText } =
             storeToRefs(globalStore);
@@ -208,9 +207,7 @@ export default {
 
         onMounted(() => {
             handleRefresh().then(() => (loading.value = false));
-            setTimeout(() => {
-                canShow.value = true;
-            }, 17);
+
             tunnel.on('extMsg', msgHandler);
         });
         onBeforeUnmount(() => {
@@ -218,7 +215,6 @@ export default {
         });
 
         return {
-            canShow,
             groupList,
             loading,
             openList,
@@ -250,6 +246,7 @@ export default {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    z-index: 1;
     .loading-wrap {
         max-height: 350px;
         flex: 1;

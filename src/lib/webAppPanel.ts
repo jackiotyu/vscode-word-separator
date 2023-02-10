@@ -34,6 +34,7 @@ export class WebViewPanelProvider implements vscode.WebviewViewProvider {
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
         this.tunnel = new WebviewTunnel(this.webviewView);
         this.tunnel.onReceive(tunnelEventHandler);
+        this.tunnel.emitReloadWebview = () => this.reload();
         this._disposables.push(...this.tunnel.disposables);
         webviewView.onDidDispose(() => {
             this._disposables.forEach((disposable) => disposable.dispose());

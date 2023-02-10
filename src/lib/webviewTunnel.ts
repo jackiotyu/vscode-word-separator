@@ -8,6 +8,7 @@ import { EXTENSION_GROUP } from './constants';
 export default class WebviewTunnel extends EventEmitter {
     private _disposables: vscode.Disposable[] = [];
     webview: vscode.WebviewView;
+    emitReloadWebview: () => void = () => {};
     constructor(webview: vscode.WebviewView) {
         super();
         this.webview = webview;

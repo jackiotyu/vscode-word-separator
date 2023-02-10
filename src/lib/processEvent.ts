@@ -9,6 +9,7 @@ import {
     WebviewAddItemMsg,
     WebviewCopySeparatorsMsg,
     WebviewLocaleMsg,
+    WebviewReloadMsg,
     LocaleType
 } from './tunnelEvents';
 import {
@@ -21,6 +22,10 @@ import {
 import WebviewTunnel from './webviewTunnel';
 import { GroupCloseItem } from '../types';
 import localize from './localize';
+
+export function handleReload(tunnel: WebviewTunnel) {
+    tunnel.emitReloadWebview();
+}
 
 export function handleSetting(tunnel: WebviewTunnel, msg: WebviewSettingMsg) {
     let setting = getSetting();

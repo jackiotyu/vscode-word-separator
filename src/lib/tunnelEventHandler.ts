@@ -10,6 +10,7 @@ import {
     handleDeleteItem,
     handleAddItem,
     handleLocale,
+    handleReload,
 } from './processEvent';
 
 export default function tunnelEventHandler(
@@ -17,6 +18,8 @@ export default function tunnelEventHandler(
     msg: WebviewPayload
 ) {
     switch (msg.type) {
+        case MsgType.RELOAD:
+            return handleReload(tunnel);
         case MsgType.SETTING:
             return handleSetting(tunnel, msg);
         case MsgType.SAVE_RULE:

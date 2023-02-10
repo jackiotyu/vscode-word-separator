@@ -62,11 +62,15 @@ if (module.hot) {
     };
     var hotEmitter = require('webpack/hot/emitter');
     hotEmitter.on('webpackHotUpdate', function (currentHash) {
-        console.log('🚀 webpackHotUpdate >>', currentHash);
         lastHash = currentHash;
-        if (!upToDate() && module.hot.status() === 'idle') {
-            log('info', '[HMR] Checking for updates on the server...');
-            check();
+        console.log('🚀 webpackHotUpdate >>', upToDate(), module.hot.status());
+        if (!upToDate()) {
+            if (module.hot.status() === 'idle') {
+                log('info', '[HMR] Checking for updates on the server...');
+                check();
+            } else {
+                window.__reload__();
+            }
         }
     });
 } else {

@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/editItem',
         name: 'EditItem',
         component: EditItem,
-        meta: { transition: 'slide-right', mode: 'out-in' },
+        meta: { transition: 'slide-right', mode: 'in-out' },
     },
 ];
 

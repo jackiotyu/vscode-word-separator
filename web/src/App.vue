@@ -1,5 +1,5 @@
 <template>
-    <router-view v-slot="{ Component, route }">
+    <router-view v-slot="{ Component, route }" v-if="canShow">
         <transition
             class="router-container"
             :name="route.meta.transition"
@@ -11,9 +11,11 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useGlobalStore } from '@/store/index';
+import { useRouter } from 'vue-router';
+import { updateState, getState } from '@/utils/common';
 import {
     provideVSCodeDesignSystem,
     vsCodeButton,
@@ -44,15 +46,30 @@ provideVSCodeDesignSystem().register(
 
 let store = useGlobalStore();
 let i18n = useI18n();
+let canShow = ref(false);
+
+onMounted(() => {
+    setTimeout(() => {
+        canShow.value = true;
+    }, 17);
+});
 
 watch(
     () => store.locale,
     (value) => {
-        console.log('locale change', value);
         i18n.locale.value = value;
     },
     { immediate: true }
 );
+
+const router = useRouter();
+router.afterEach((to) => {
+    let { name, query } = to;
+    updateState({ route: { name, query } });
+});
+
+let { route: { name, query = {} } = {} } = getState();
+if (name) router.replace({ name, query });
 </script>
 
 <style lang="scss">
@@ -91,6 +108,10 @@ nav {
 
 .router-container {
     overflow: hidden;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    background: var(--vscode-editor-background);
 }
 
 .slide-left,
@@ -107,7 +128,7 @@ $duration: 0.3s;
 
 // router view
 .slide-right-enter-active {
-    transition: transform $duration ease-in-out;
+    transition: transform $duration ease;
     z-index: 2;
     transform: translateX(100%);
 }
@@ -124,7 +145,7 @@ $duration: 0.3s;
 // router view back
 
 .slide-left-leave-active {
-    transition: transform $duration ease-in-out;
+    transition: transform $duration ease;
     z-index: 2;
     transform: translateX(0%);
 }

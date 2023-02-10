@@ -21,7 +21,7 @@
                 size="50"
                 maxLength="30"
                 :placeholder="$t('placeholder.itemName')"
-                v-model:value="formName"
+                :value="formName"
                 @input="onChange('formName', $event)"
                 >{{ $t('form.itemName') }}</vscode-text-field
             >
@@ -32,7 +32,7 @@
                 :rows="4"
                 :cols="100"
                 maxLength="1000"
-                v-model:value="formValue"
+                :value="formValue"
                 @input="onChange('formValue', $event)"
                 >{{ $t('form.itemValue') }}</vscode-text-area
             >
@@ -51,9 +51,10 @@
 </template>
 
 <script lang="ts">
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, useRoute, onBeforeRouteLeave } from 'vue-router';
 import { ref, watch } from 'vue';
 import { sendMsg, MsgType } from '@/utils/tunnel';
+import { updateState, getState } from '@/utils/common';
 
 export default {
     name: 'EditItem',
@@ -67,6 +68,12 @@ export default {
         let changed = ref<boolean>(false);
         let formName = ref<string>((ruleName as string) || '');
         let formValue = ref<string>((ruleValue as string) || '');
+
+        onBeforeRouteLeave((to, from, next) => {
+            updateState({ editForm: undefined });
+            next();
+        });
+
         const isAdd = !ruleName;
         watch(
             () => [formName.value, formValue.value],
@@ -74,6 +81,9 @@ export default {
                 changed.value =
                     !!(name && value) &&
                     (name !== ruleName || value !== ruleValue);
+                if (changed.value) {
+                    updateState({ editForm: { name, value } });
+                }
             }
         );
 
@@ -115,6 +125,12 @@ export default {
                     break;
             }
         };
+        let oldForm = getState().editForm;
+        if (oldForm) {
+            formName.value = oldForm.name;
+            formValue.value = oldForm.value;
+            updateState({ editForm: undefined });
+        }
         return {
             router,
             changed,
@@ -140,6 +156,7 @@ export default {
     flex-direction: column;
     padding: 0 8px;
     box-sizing: border-box;
+    z-index: 2;
 }
 
 .header-wrap {
