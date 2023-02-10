@@ -3,7 +3,7 @@
     "name": "word-separator",
     "displayName": "Word Separator Manage 分隔符配置",
     "description": "Manage vscode word separators 配置vscode文字分割符",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "repository": {
         "type": "git",
         "url": "https://github.com/jackiotyu/vscode-word-separator.git"

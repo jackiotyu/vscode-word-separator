@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
-import GlobalSetting, { getState, updateState } from '@/utils/common';
+import GlobalSetting from '@/utils/common';
 import tunnel, { MsgType, sendMsg } from '@/utils/tunnel';
 import { useGlobalStore } from '@/store/index';
 import I18n from '@/i18n/index';
@@ -18,15 +18,10 @@ createApp(App)
 
 const store = useGlobalStore();
 
-const localValue = getState().locale;
-if (localValue) {
-    store.$patch({ locale: localValue });
-} else {
-    sendMsg({ type: MsgType.LOCALE });
-}
+sendMsg({ type: MsgType.LOCALE });
+
 tunnel.on('extMsg', (msg) => {
     if (msg.type === MsgType.LOCALE) {
-        updateState({ locale: msg.value });
         store.$patch({ locale: msg.value });
     } else if (msg.type === MsgType.SETTING) {
         const { rule: wordSeparators, group } = msg.value;

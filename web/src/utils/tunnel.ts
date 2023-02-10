@@ -96,7 +96,7 @@ export function sendMsg<U extends WebviewPayloadLike, T extends ExtPayload>(
             return resolve();
         }
         const cb = (data: any) => {
-            console.log('e', data, packMsg.id, message.type);
+            // console.log('e', data, packMsg.id, message.type);
             if ('id' in data && data.id === packMsg.id) {
                 resolve(data);
                 tunnel.off('extMsg', cb);
