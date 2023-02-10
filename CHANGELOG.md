@@ -9,3 +9,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### release
 
 - Initial release
+
+## [0.0.4] - 2023-02-10
+
+### fix
+
+- Save form

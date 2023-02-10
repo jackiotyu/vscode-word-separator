@@ -109,7 +109,7 @@ import { reactive, ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { MsgType, ExtPayload } from '@ext/src/lib/tunnelEvents';
 import tunnel, { sendMsg } from '@/utils/tunnel';
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 import { storeToRefs } from 'pinia';
 import { RuleGroupItem, useGlobalStore } from '@/store/index';
 

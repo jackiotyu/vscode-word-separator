@@ -21,7 +21,8 @@
                 size="50"
                 maxLength="30"
                 :placeholder="$t('placeholder.itemName')"
-                v-model="formName"
+                v-model:value="formName"
+                @input="onChange('formName', $event)"
                 >{{ $t('form.itemName') }}</vscode-text-field
             >
             <vscode-text-area
@@ -31,7 +32,8 @@
                 :rows="4"
                 :cols="100"
                 maxLength="1000"
-                v-model="formValue"
+                v-model:value="formValue"
+                @input="onChange('formValue', $event)"
                 >{{ $t('form.itemValue') }}</vscode-text-area
             >
         </div>
@@ -102,6 +104,17 @@ export default {
             formName.value = ruleName;
             formValue.value = ruleValue;
         };
+        const onChange = (type: string, e: any) => {
+            let value = e.target.value;
+            switch (type) {
+                case 'formName':
+                    formName.value = value;
+                    break;
+                case 'formValue':
+                    formValue.value = value;
+                    break;
+            }
+        };
         return {
             router,
             changed,
@@ -109,6 +122,7 @@ export default {
             formValue,
             handleSave,
             handleReset,
+            onChange,
         };
     },
 };
