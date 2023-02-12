@@ -15,3 +15,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### fix
 
 - Save form
+
+## [0.0.7] - 2023-02-12
+
+### Feat
+
+- Add builtin Chinese Separators
