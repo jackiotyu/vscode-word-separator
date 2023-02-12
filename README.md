@@ -1,7 +1,7 @@
 # Word Separator Manage 分隔符配置
 
 Easily toggle and manage vscode word separator
-切换、配置vscode文字分割符
+切换、配置vscode文字分隔符
 
 ***
 
@@ -12,7 +12,7 @@ Easily toggle and manage vscode word separator
 
 ***
 
-![cn-separators](images/cn-separators.gif){:height="100px" width="100px"}
+![cn-separators](images/cn-separators.gif)
 
 - Toggle Chinese separators to select text
 - 切换中文分隔符选中效果
