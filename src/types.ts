@@ -12,3 +12,7 @@ export type GroupCloseItem = {
     id?: number;
 };
 export type GroupListType = GroupItem[];
+export interface ManageItem {
+    isActive: boolean;
+    separator: string;
+}

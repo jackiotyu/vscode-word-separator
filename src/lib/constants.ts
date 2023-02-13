@@ -8,3 +8,7 @@ export const CUSTOM_SEPARATORS = '-';
 
 export const EXTENSION_NAME = 'WordSeparator';
 export const EXTENSION_GROUP = 'WordSeparator.group';
+
+export const COMMAND_TOGGLE_SEPARATOR = 'separatorsManage.toggleSeparator';
+export const COMMAND_TOGGLE_RANGE_SEPARATOR =
+    'separatorsManage.toggleRangeSeparator';
