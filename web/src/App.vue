@@ -19,12 +19,8 @@ import { updateState, getState } from '@/utils/common';
 import {
     provideVSCodeDesignSystem,
     vsCodeButton,
-    vsCodeCheckbox,
-    vsCodeDropdown,
     vsCodeOption,
     vsCodeTextArea,
-    vsCodeRadioGroup,
-    vsCodeRadio,
     vsCodeDivider,
     vsCodeProgressRing,
     vsCodeTextField,
@@ -33,12 +29,8 @@ import {
 // 注册组件
 provideVSCodeDesignSystem().register(
     vsCodeButton(),
-    vsCodeCheckbox(),
-    vsCodeDropdown(),
     vsCodeOption(),
     vsCodeTextArea(),
-    vsCodeRadioGroup(),
-    vsCodeRadio(),
     vsCodeDivider(),
     vsCodeProgressRing(),
     vsCodeTextField()

@@ -35,18 +35,6 @@ module.exports = defineConfig({
         },
     },
     chainWebpack: (config) => {
-        config.plugin('copy').tap(([pathConfigs]) => {
-            const to = pathConfigs.patterns[0].to;
-            // so the original `/public` folder keeps priority
-            pathConfigs.patterns[0].force = true;
-
-            // 传输img文件夹到dis-web/img
-            pathConfigs.patterns.unshift({
-                from: 'img',
-                to: `${to}/img`,
-            });
-            return [pathConfigs];
-        });
         config.module
             .rule('vue')
             .use('vue-loader')

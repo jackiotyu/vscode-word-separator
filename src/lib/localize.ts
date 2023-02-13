@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'fs-extra';
+import { existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { extensions } from 'vscode';
 
