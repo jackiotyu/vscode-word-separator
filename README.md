@@ -5,6 +5,13 @@ Easily toggle and manage vscode word separator
 
 ***
 
+![dash-separators](images/toggle.gif)
+
+- Toggle separators to select text by hovering text;
+- hover文字，切换分隔符以选中文字
+
+***
+
 ![dash-separators](images/dash-separators.gif)
 
 - Toggle dash to select text

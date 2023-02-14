@@ -2,7 +2,7 @@
     "publisher": "jackiotyu",
     "name": "word-separator",
     "displayName": "Word Separator Manage 分隔符配置",
-    "description": "Manage vscode word separators 配置vscode文字分割符",
+    "description": "Manage vscode word separators 配置vscode文字分隔符",
     "version": "0.0.7",
     "repository": {
         "type": "git",
@@ -15,8 +15,18 @@
     "categories": [
         "Other"
     ],
+    "keywords": [
+        "separator",
+        "word separator",
+        "separator manage",
+        "分割",
+        "分隔",
+        "分隔符",
+        "文字分隔符"
+    ],
     "activationEvents": [
-        "onView:separators-explorer"
+        "onView:separators-explorer",
+        "onStartupFinished"
     ],
     "main": "./dist/extension.js",
     "contributes": {

@@ -6,9 +6,13 @@ export const LINK_SEPARATORS = '.;/?:@&=+$,';
 // 自定义分隔符
 export const CUSTOM_SEPARATORS = '-';
 
+// 拓展名称
 export const EXTENSION_NAME = 'WordSeparator';
+// 拓展分组配置名
 export const EXTENSION_GROUP = 'WordSeparator.group';
 
+// 切换所选的分隔符的命令
 export const COMMAND_TOGGLE_SEPARATOR = 'separatorsManage.toggleSeparator';
+// 切换所选范围的分隔符的命令
 export const COMMAND_TOGGLE_RANGE_SEPARATOR =
     'separatorsManage.toggleRangeSeparator';
