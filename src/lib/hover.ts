@@ -13,6 +13,7 @@ import localize from './localize';
 export class SeparatorsHover {
     private readonly HOVER_KEY = HOVER;
     private _disposeHover?: vscode.Disposable;
+    private _hoverProvider = new HoverProvider();
     constructor(context: vscode.ExtensionContext) {
         this.init();
         context.subscriptions.push(
@@ -104,7 +105,7 @@ export class SeparatorsHover {
         this.cancelHover();
         this._disposeHover = vscode.languages.registerHoverProvider(
             '*',
-            new HoverProvider()
+            this._hoverProvider
         );
     }
 }
