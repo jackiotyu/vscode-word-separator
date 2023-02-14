@@ -20,6 +20,7 @@ import {
     toBaseItem
 } from './settingUtils';
 import WebviewTunnel from './webviewTunnel';
+import windowAdaptor from './windowAdaptor';
 import { GroupCloseItem } from '../types';
 import localize from './localize';
 
@@ -46,11 +47,11 @@ export async function handleCopySeparators(
     let success = true;
     try {
         await vscode.env.clipboard.writeText(separatorConfig.get());
-        vscode.window.showInformationMessage(
+        windowAdaptor.showPanelInfo(
             localize('event.action.copy.success')
         );
     } catch (error: any) {
-        vscode.window.showErrorMessage(
+        windowAdaptor.showPanelError(
             localize('event.action.copy.fail'),
             error.message as string
         );
@@ -66,11 +67,11 @@ export async function handleCopySetting(
         await vscode.env.clipboard.writeText(
             `"editor.wordSeparators": ${JSON.stringify(separatorConfig.get())},`
         );
-        vscode.window.showInformationMessage(
+        windowAdaptor.showPanelInfo(
             localize('event.action.copy.success')
         );
     } catch (error: any) {
-        vscode.window.showErrorMessage(
+        windowAdaptor.showPanelError(
             localize('event.action.copy.fail'),
             error.message as string
         );
@@ -141,7 +142,7 @@ export async function handleDeleteItem(
         // 需要手动确认
         // 确认替换
         let confirmText = localize('common.action.confirm');
-        let confirm = await vscode.window.showInformationMessage(
+        let confirm = await windowAdaptor.showPanelInfo(
             localize('event.action.deleteItem.confirm'),
             { modal: true },
             confirmText

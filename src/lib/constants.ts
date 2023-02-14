@@ -10,6 +10,8 @@ export const CUSTOM_SEPARATORS = '-';
 export const EXTENSION_NAME = 'WordSeparator';
 // 拓展分组配置名
 export const EXTENSION_GROUP = 'WordSeparator.group';
+// 配置禁用各种提示
+export const EXTENSION_SILENT = 'WordSeparator.silent';
 
 // 切换所选的分隔符的命令
 export const COMMAND_TOGGLE_SEPARATOR = 'separatorsManage.toggleSeparator';

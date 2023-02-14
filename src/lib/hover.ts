@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { HoverProvider } from './hoverProvider';
 import { separatorConfig, getActiveRuleSet } from './settingUtils';
+import windowAdaptor from './windowAdaptor';
 import {
     COMMAND_TOGGLE_SEPARATOR,
     COMMAND_TOGGLE_RANGE_SEPARATOR,
@@ -15,6 +16,8 @@ export class SeparatorsHover {
         );
 
         // TODO 后续统一command管理, 添加错误提示
+        // TODO 使用快捷键(ctrl)点击时，启用当前符号，并禁用范围内其余符号
+        // TODO 使用快捷键(shift)点击时，取消当前符号, 并启用范围内其余符号
         context.subscriptions.push(
             vscode.commands.registerCommand(
                 COMMAND_TOGGLE_SEPARATOR,
@@ -37,7 +40,7 @@ export class SeparatorsHover {
                               'hover.command.toggleSeparator.cancel',
                               separator
                           );
-                    vscode.window.showInformationMessage(tips);
+                    windowAdaptor.showHoverInfo(tips);
                 }
             )
         );
@@ -67,7 +70,7 @@ export class SeparatorsHover {
                               'hover.command.toggleRangeSeparator.cancel',
                               `${[...rangeSeparators].join(' ')}`
                           );
-                    vscode.window.showInformationMessage(tips);
+                    windowAdaptor.showHoverInfo(tips);
                 }
             )
         );

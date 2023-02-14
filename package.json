@@ -105,6 +105,17 @@
                             }
                         }
                     }
+                },
+                "WordSeparator.silent": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "enum": ["hover", "panel"],
+                        "enumDescriptions": [
+                            "禁用分隔符管理面板的消息通知",
+                            "禁用hover时各种操作的消息通知"
+                        ]
+                    }
                 }
             }
         },
@@ -123,7 +134,8 @@
                     "name": "%ext.config.defaults.WordSeparator.group.urlSeparators%",
                     "separators": ".;/?:@&=+$,"
                 }
-            ]
+            ],
+            "WordSeparator.silent": []
         }
     },
     "scripts": {
