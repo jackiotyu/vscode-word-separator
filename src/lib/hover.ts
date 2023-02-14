@@ -1,20 +1,27 @@
 import * as vscode from 'vscode';
 import { HoverProvider } from './hoverProvider';
-import { separatorConfig, getActiveRuleSet } from './settingUtils';
+import { separatorConfig, getActiveRuleSet, extConfig } from './settingUtils';
 import windowAdaptor from './windowAdaptor';
 import {
     COMMAND_TOGGLE_SEPARATOR,
     COMMAND_TOGGLE_RANGE_SEPARATOR,
+    EXTENSION_HOVER,
+    HOVER,
 } from './constants';
 import localize from './localize';
 
 export class SeparatorsHover {
+    private readonly HOVER_KEY = HOVER;
+    private _disposeHover?: vscode.Disposable;
     constructor(context: vscode.ExtensionContext) {
-        // TODO 监听配置，动态切换是否展示分隔符面板
+        this.init();
         context.subscriptions.push(
-            vscode.languages.registerHoverProvider('*', new HoverProvider())
+            vscode.workspace.onDidChangeConfiguration((event) => {
+                if (event.affectsConfiguration(EXTENSION_HOVER)) {
+                    this.checkHover();
+                }
+            })
         );
-
         // TODO 后续统一command管理, 添加错误提示
         // TODO 使用快捷键(ctrl)点击时，启用当前符号，并禁用范围内其余符号
         // TODO 使用快捷键(shift)点击时，取消当前符号, 并启用范围内其余符号
@@ -73,6 +80,31 @@ export class SeparatorsHover {
                     windowAdaptor.showHoverInfo(tips);
                 }
             )
+        );
+
+        context.subscriptions.push({
+            dispose: () => this._disposeHover?.dispose(),
+        });
+    }
+
+    get updatedHover() {
+        return extConfig.get(this.HOVER_KEY);
+    }
+
+    init() {
+        this.checkHover();
+    }
+    checkHover() {
+        this.updatedHover ? this.activeHover() : this.cancelHover();
+    }
+    cancelHover() {
+        this._disposeHover?.dispose();
+    }
+    activeHover() {
+        this.cancelHover();
+        this._disposeHover = vscode.languages.registerHoverProvider(
+            '*',
+            new HoverProvider()
         );
     }
 }

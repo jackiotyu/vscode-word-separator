@@ -16,12 +16,11 @@ class SeparatorConfig {
 }
 
 class ExtConfig {
-    get(key: 'group'):  GroupCloseItem[];
+    get(key: 'hover'): boolean;
+    get(key: 'group'): GroupCloseItem[];
     get(key: 'silent'): SilentType[];
     get(key: string) {
-        return vscode.workspace
-            .getConfiguration('WordSeparator')
-            .get(key);
+        return vscode.workspace.getConfiguration('WordSeparator').get(key);
     }
     update(key: string, value: any) {
         return vscode.workspace

@@ -116,6 +116,11 @@
                             "禁用hover时各种操作的消息通知"
                         ]
                     }
+                },
+                "WordSeparator.hover": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "配置是否在hover时管理分隔符"
                 }
             }
         },
@@ -135,7 +140,8 @@
                     "separators": ".;/?:@&=+$,"
                 }
             ],
-            "WordSeparator.silent": []
+            "WordSeparator.silent": [],
+            "WordSeparator.hover": true
         }
     },
     "scripts": {
