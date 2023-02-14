@@ -4,11 +4,17 @@ All notable changes to the "word-separator" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [0.0.1] - 2023-02-06
+## [0.0.8] - 2023-02-14
 
-### release
+### Feat
 
-- Initial release
+- Add Hover Toggle Action
+
+## [0.0.7] - 2023-02-12
+
+### Feat
+
+- Add builtin Chinese Separators
 
 ## [0.0.4] - 2023-02-10
 
@@ -16,8 +22,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Save form
 
-## [0.0.7] - 2023-02-12
+## [0.0.1] - 2023-02-06
 
-### Feat
+### release
 
-- Add builtin Chinese Separators
+- Initial release
