@@ -6,10 +6,11 @@ import {
     HOVER,
     STATUSBAR_NAME,
 } from './constants';
-// import localize from './localize';
+import localize from './localize';
 
 export class StatusBar {
     statusBar: vscode.StatusBarItem;
+    private readonly STATUSBAR_NAME = localize('hover.command.title');
     constructor(context: vscode.ExtensionContext) {
         let statusBar = vscode.window.createStatusBarItem(
             STATUSBAR_NAME,
@@ -17,7 +18,7 @@ export class StatusBar {
             200
         );
         statusBar.command = COMMAND_TOGGLE_HOVER;
-        statusBar.tooltip = '启用/取消 Separator hover';
+        statusBar.tooltip = localize('statusBar.hover.title');
         this.statusBar = statusBar;
         context.subscriptions.push(statusBar);
         this.checkActive();
@@ -42,9 +43,9 @@ export class StatusBar {
 
     checkActive(): void {
         if (this.updatedHover) {
-            this.statusBar.text = '$(check) Separator';
+            this.statusBar.text = `$(check) ${this.STATUSBAR_NAME}`;
         } else {
-            this.statusBar.text = '$(close) Separator';
+            this.statusBar.text = `$(close) ${this.STATUSBAR_NAME}`;
         }
     }
 }
