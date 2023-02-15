@@ -109,21 +109,27 @@
                 "WordSeparator.silent": {
                     "type": "array",
                     "default": [],
+                    "description": "%ext.config.defaults.WordSeparator.silent.description%",
                     "items": {
                         "enum": [
-                            "hover",
-                            "panel"
+                            "panel",
+                            "hover"
                         ],
                         "enumDescriptions": [
-                            "禁用分隔符管理面板的消息通知",
-                            "禁用hover时各种操作的消息通知"
+                            "%ext.config.defaults.WordSeparator.silent.enum.panel%",
+                            "%ext.config.defaults.WordSeparator.silent.enum.hover%"
                         ]
                     }
                 },
                 "WordSeparator.hover": {
                     "type": "boolean",
                     "default": true,
-                    "description": "配置是否在hover时管理分隔符"
+                    "description": "%ext.config.defaults.WordSeparator.hover.description%"
+                },
+                "WordSeparator.highlight": {
+                    "type": "object",
+                    "default": {},
+                    "description": "%ext.config.defaults.WordSeparator.highlight.description%"
                 }
             }
         },
@@ -146,7 +152,8 @@
             "WordSeparator.silent": [
                 "hover"
             ],
-            "WordSeparator.hover": true
+            "WordSeparator.hover": true,
+            "WordSeparator.highlight": {}
         }
     },
     "scripts": {

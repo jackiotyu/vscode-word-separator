@@ -5,7 +5,7 @@
     "event.action.copy.success": "Copy success",
     "event.action.copy.fail": "Copy fail",
     "hover.command.title": "Separator",
-    "statusBar.hover.title": "Enable/Disable hover display separator management and separator highlighting",
+    "statusBar.hover.title": "Enable/Disable (hover display separator management) and (separator highlighting)",
     "hover.command.toggleSeparator.toggle": "Toggles the separator activation state",
     "hover.command.toggleSeparator.enable": "Enabling the separator \" {0} \" succeeded",
     "hover.command.toggleSeparator.cancel": "Canceling the separator \" {0} \" succeeded",
@@ -25,5 +25,10 @@
     "ext.config.WordSeparator.group.items.isDefault": "Whether it is the default value, and when it is true, it is not editable",
     "ext.config.defaults.WordSeparator.group.default": "default",
     "ext.config.defaults.WordSeparator.group.cnSeparators": "CN separators",
-    "ext.config.defaults.WordSeparator.group.urlSeparators": "Url separators"
+    "ext.config.defaults.WordSeparator.group.urlSeparators": "Url separators",
+    "ext.config.defaults.WordSeparator.silent.description": "Disable notifications",
+    "ext.config.defaults.WordSeparator.silent.enum.panel": "Disable message notifications for the Separator management panel",
+    "ext.config.defaults.WordSeparator.silent.enum.hover": "Disable Message notifications for actions when hover",
+    "ext.config.defaults.WordSeparator.hover.description": "Configure whether to manage separators when hovering",
+    "ext.config.defaults.WordSeparator.highlight.description": "Configure the separator highlighting effect, refer to https://vshaxe.github.io/vscode-extern/vscode/DecorationRenderOptions.html"
 }

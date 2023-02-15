@@ -29,16 +29,26 @@ export class StatusBar {
                 }
             })
         );
-        this.statusBar.show();
         context.subscriptions.push(
             vscode.commands.registerCommand(COMMAND_TOGGLE_HOVER, () =>
                 extConfig.update(HOVER, !this.updatedHover)
+            )
+        );
+        this.checkCanShow(vscode.window.activeTextEditor);
+        context.subscriptions.push(
+            vscode.window.onDidChangeActiveTextEditor((editor) =>
+                this.checkCanShow(editor)
             )
         );
     }
 
     get updatedHover() {
         return extConfig.get(HOVER);
+    }
+
+    checkCanShow(editor: vscode.TextEditor | undefined): void {
+        if (editor) return this.statusBar.show();
+        this.statusBar.hide();
     }
 
     checkActive(): void {

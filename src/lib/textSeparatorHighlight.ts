@@ -1,7 +1,12 @@
 import * as vscode from 'vscode';
 import { getActiveRuleSet, extConfig } from './settingUtils';
 import { getSafeRangeAndText } from './textUtil';
-import { EXTENSION_HOVER, HOVER } from './constants';
+import {
+    EXTENSION_HOVER,
+    EXTENSION_SEPARATOR_HIGHLIGHT,
+    HOVER,
+    HIGHLIGHT,
+} from './constants';
 
 export class TextSeparatorHighlight {
     private _decoration?: vscode.TextEditorDecorationType;
@@ -9,13 +14,16 @@ export class TextSeparatorHighlight {
     private _disposables: vscode.Disposable[] = [];
     private _text?: string;
     private _range?: vscode.Range;
-    // TODO 后续自定义配置
-    private _textDecorationOptions = {
-        border: '1px dashed #99CCFF',
+    private _textDecorationOptions: vscode.DecorationRenderOptions = {
+        border: '1px solid #33CCFF',
+        backgroundColor: '#33CCFF40',
         rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
     };
+    // 自定义配置
+    private _extendDecorationOptions: vscode.DecorationRenderOptions = {};
     constructor(context: vscode.ExtensionContext) {
         this.checkActive();
+        this.setDecorationOptions();
         context.subscriptions.push(
             vscode.workspace.onDidChangeConfiguration((event) => {
                 if (event.affectsConfiguration(EXTENSION_HOVER)) {
@@ -23,6 +31,9 @@ export class TextSeparatorHighlight {
                 }
                 if (event.affectsConfiguration('editor.wordSeparators')) {
                     this.setTextDecoration();
+                }
+                if (event.affectsConfiguration(EXTENSION_SEPARATOR_HIGHLIGHT)) {
+                    this.setDecorationOptions();
                 }
             })
         );
@@ -65,6 +76,11 @@ export class TextSeparatorHighlight {
         }
     }
 
+    setDecorationOptions() {
+        this._extendDecorationOptions = extConfig.get(HIGHLIGHT) || {};
+        this.setTextDecoration();
+    }
+
     getSeparatorRanges(range: vscode.Range, wholeWord: string) {
         let ruleSet = getActiveRuleSet();
         let offsetList = [...wholeWord]
@@ -88,9 +104,10 @@ export class TextSeparatorHighlight {
         this._decoration?.dispose();
         let rangeList = this.getSeparatorRanges(this._range, this._text);
         if (!rangeList.length) return;
-        this._decoration = vscode.window.createTextEditorDecorationType(
-            this._textDecorationOptions
-        );
+        this._decoration = vscode.window.createTextEditorDecorationType({
+            ...this._textDecorationOptions,
+            ...this._extendDecorationOptions,
+        });
         vscode.window.activeTextEditor?.setDecorations(
             this._decoration,
             rangeList

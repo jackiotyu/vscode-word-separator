@@ -16,6 +16,8 @@ export const EXTENSION_SILENT = 'WordSeparator.silent';
 export const EXTENSION_HOVER = 'WordSeparator.hover';
 export const HOVER = 'hover';
 export const STATUSBAR_NAME = 'WordSeparator.statusbar';
+export const EXTENSION_SEPARATOR_HIGHLIGHT = 'WordSeparator.highlight';
+export const HIGHLIGHT = 'highlight';
 
 // 切换所选的分隔符的命令
 export const COMMAND_TOGGLE_SEPARATOR = 'separatorsManage.toggleSeparator';

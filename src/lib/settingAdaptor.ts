@@ -19,6 +19,7 @@ class ExtConfig {
     get(key: 'hover'): boolean;
     get(key: 'group'): GroupCloseItem[];
     get(key: 'silent'): SilentType[];
+    get(key: 'highlight'): vscode.DecorationRenderOptions;
     get(key: string) {
         return vscode.workspace.getConfiguration('WordSeparator').get(key);
     }
