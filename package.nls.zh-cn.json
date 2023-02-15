@@ -5,6 +5,7 @@
     "event.action.copy.success": "复制成功",
     "event.action.copy.fail": "复制失败",
     "hover.command.title": "分隔符",
+    "statusBar.hover.title": "启用/取消(hover显示分隔符管理)和(分隔符高亮)",
     "hover.command.toggleSeparator.toggle": "切换分隔符激活状态",
     "hover.command.toggleSeparator.enable": "启用分隔符 \" {0} \" 成功",
     "hover.command.toggleSeparator.cancel": "取消分隔符 \" {0} \" 成功",
@@ -24,5 +25,10 @@
     "ext.config.WordSeparator.group.items.isDefault": "是否为默认值,设为 true 时,不可编辑",
     "ext.config.defaults.WordSeparator.group.default": "默认分隔符",
     "ext.config.defaults.WordSeparator.group.cnSeparators": "中文分隔符",
-    "ext.config.defaults.WordSeparator.group.urlSeparators": "网络链接符号"
+    "ext.config.defaults.WordSeparator.group.urlSeparators": "网络链接符号",
+    "ext.config.defaults.WordSeparator.silent.description": "禁用通知",
+    "ext.config.defaults.WordSeparator.silent.enum.panel": "禁用分隔符管理面板的消息通知",
+    "ext.config.defaults.WordSeparator.silent.enum.hover": "禁用hover时各种操作的消息通知",
+    "ext.config.defaults.WordSeparator.hover.description": "配置是否在hover时管理分隔符",
+    "ext.config.defaults.WordSeparator.highlight.description": "配置分隔符高亮效果,参考 https://vshaxe.github.io/vscode-extern/vscode/DecorationRenderOptions.html"
 }

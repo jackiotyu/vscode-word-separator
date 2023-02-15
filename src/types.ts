@@ -16,3 +16,10 @@ export interface ManageItem {
     isActive: boolean;
     separator: string;
 }
+
+export enum Silent {
+    HOVER = 'hover',
+    PANEL = 'panel',
+}
+
+export type SilentType = `${Silent}`;

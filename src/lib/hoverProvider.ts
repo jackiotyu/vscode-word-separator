@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { getAllConfigSeparatorSet } from './settingUtils';
 import { safeReg } from './utils';
+import { getSafeRangeAndText } from './textUtil';
 import { MarkdownStringBuilder } from './MarkdownStringBuilder';
 
 export class HoverProvider implements vscode.HoverProvider {
@@ -9,14 +10,13 @@ export class HoverProvider implements vscode.HoverProvider {
         position: vscode.Position,
         token: vscode.CancellationToken
     ): vscode.ProviderResult<vscode.Hover> {
-        const range = document.getWordRangeAtPosition(position, /\S+/g);
-        if (!range) return;
-        const hoveredWord = document.getText(range);
-        if (!hoveredWord) return;
+        let textStatus = getSafeRangeAndText(document, position);
+        if (!textStatus) return;
+        let { text, range } = textStatus;
         let activeSeparators = [...getAllConfigSeparatorSet()];
         let includeSeparators: string[] = [];
         includeSeparators = activeSeparators.filter((i) => {
-            return safeReg(i).test(hoveredWord);
+            return safeReg(i).test(text);
         });
         if (!includeSeparators.length) return;
         let markdownString =

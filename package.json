@@ -105,6 +105,31 @@
                             }
                         }
                     }
+                },
+                "WordSeparator.silent": {
+                    "type": "array",
+                    "default": [],
+                    "description": "%ext.config.defaults.WordSeparator.silent.description%",
+                    "items": {
+                        "enum": [
+                            "panel",
+                            "hover"
+                        ],
+                        "enumDescriptions": [
+                            "%ext.config.defaults.WordSeparator.silent.enum.panel%",
+                            "%ext.config.defaults.WordSeparator.silent.enum.hover%"
+                        ]
+                    }
+                },
+                "WordSeparator.hover": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%ext.config.defaults.WordSeparator.hover.description%"
+                },
+                "WordSeparator.highlight": {
+                    "type": "object",
+                    "default": {},
+                    "description": "%ext.config.defaults.WordSeparator.highlight.description%"
                 }
             }
         },
@@ -123,7 +148,12 @@
                     "name": "%ext.config.defaults.WordSeparator.group.urlSeparators%",
                     "separators": ".;/?:@&=+$,"
                 }
-            ]
+            ],
+            "WordSeparator.silent": [
+                "hover"
+            ],
+            "WordSeparator.hover": true,
+            "WordSeparator.highlight": {}
         }
     },
     "scripts": {

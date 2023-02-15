@@ -10,9 +10,22 @@ export const CUSTOM_SEPARATORS = '-';
 export const EXTENSION_NAME = 'WordSeparator';
 // 拓展分组配置名
 export const EXTENSION_GROUP = 'WordSeparator.group';
+// 配置禁用各种提示
+export const EXTENSION_SILENT = 'WordSeparator.silent';
+// 配置是否开启hover管理命令
+export const EXTENSION_HOVER = 'WordSeparator.hover';
+export const HOVER = 'hover';
+export const STATUSBAR_NAME = 'WordSeparator.statusbar';
+export const EXTENSION_SEPARATOR_HIGHLIGHT = 'WordSeparator.highlight';
+export const HIGHLIGHT = 'highlight';
 
 // 切换所选的分隔符的命令
 export const COMMAND_TOGGLE_SEPARATOR = 'separatorsManage.toggleSeparator';
 // 切换所选范围的分隔符的命令
 export const COMMAND_TOGGLE_RANGE_SEPARATOR =
     'separatorsManage.toggleRangeSeparator';
+// 切换是否开启hover管理命令
+export const COMMAND_TOGGLE_HOVER = 'separatorsManage.toggleHover';
+// TODO 后续自定义配置
+// 限制最大处理文本长度
+export const MAX_TEXT_LENGTH = 200;
