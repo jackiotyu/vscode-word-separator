@@ -23,11 +23,9 @@ export class MarkdownStringBuilder {
     static readonly commandTitle = localize('hover.command.title');
 
     static buildMarkdownString(separatorList: string[]): vscode.MarkdownString {
-        // let activeRule = getActiveRule();
         let splitStr = '&nbsp;&nbsp;|&nbsp;&nbsp;';
         const optionsString = separatorList
             .map((s) => {
-                // let isActive = activeRule.includes(s);
                 return MarkdownStringBuilder.getCommandItemString(s);
             })
             .join('&nbsp;');
@@ -69,7 +67,6 @@ export class MarkdownStringBuilder {
         return `**[${icon}](${commandContent} ${tips})**`;
     }
 
-    // TODO 动态更新当前是否激活的状态 isActive: boolean
     static getCommandItemString(separator: string) {
         let tips = MarkdownStringBuilder.toggleSeparatorTitle;
         let commandContent = encodeMarkdownCommand(

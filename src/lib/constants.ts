@@ -24,4 +24,6 @@ export const COMMAND_TOGGLE_RANGE_SEPARATOR =
     'separatorsManage.toggleRangeSeparator';
 // 切换是否开启hover管理命令
 export const COMMAND_TOGGLE_HOVER = 'separatorsManage.toggleHover';
-
+// TODO 后续自定义配置
+// 限制最大处理文本长度
+export const MAX_TEXT_LENGTH = 200;

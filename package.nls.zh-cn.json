@@ -5,7 +5,7 @@
     "event.action.copy.success": "复制成功",
     "event.action.copy.fail": "复制失败",
     "hover.command.title": "分隔符",
-    "statusBar.hover.title": "启用/取消hover打开分隔符管理",
+    "statusBar.hover.title": "启用/取消hover显示分隔符管理和分隔符高亮",
     "hover.command.toggleSeparator.toggle": "切换分隔符激活状态",
     "hover.command.toggleSeparator.enable": "启用分隔符 \" {0} \" 成功",
     "hover.command.toggleSeparator.cancel": "取消分隔符 \" {0} \" 成功",

@@ -110,7 +110,10 @@
                     "type": "array",
                     "default": [],
                     "items": {
-                        "enum": ["hover", "panel"],
+                        "enum": [
+                            "hover",
+                            "panel"
+                        ],
                         "enumDescriptions": [
                             "禁用分隔符管理面板的消息通知",
                             "禁用hover时各种操作的消息通知"
@@ -140,7 +143,9 @@
                     "separators": ".;/?:@&=+$,"
                 }
             ],
-            "WordSeparator.silent": [],
+            "WordSeparator.silent": [
+                "hover"
+            ],
             "WordSeparator.hover": true
         }
     },
