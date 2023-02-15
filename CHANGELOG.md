@@ -4,6 +4,12 @@ All notable changes to the "word-separator" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.9] - 2023-02-15
+
+### Feat
+
+- Add statusbar Item and separators highlight
+
 ## [0.0.8] - 2023-02-14
 
 ### Feat
