@@ -3,7 +3,7 @@
     "name": "word-separator",
     "displayName": "Word Separator Manage 分隔符配置",
     "description": "Manage vscode word separators 配置vscode文字分隔符",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "repository": {
         "type": "git",
         "url": "https://github.com/jackiotyu/vscode-word-separator.git"
@@ -80,6 +80,7 @@
             "properties": {
                 "WordSeparator.group": {
                     "type": "array",
+                    "scope": "machine",
                     "default": [
                         {
                             "name": "default",
@@ -109,6 +110,7 @@
                 "WordSeparator.silent": {
                     "type": "array",
                     "default": [],
+                    "scope": "machine",
                     "description": "%ext.config.defaults.WordSeparator.silent.description%",
                     "items": {
                         "enum": [
@@ -124,11 +126,13 @@
                 "WordSeparator.hover": {
                     "type": "boolean",
                     "default": true,
+                    "scope": "machine",
                     "description": "%ext.config.defaults.WordSeparator.hover.description%"
                 },
                 "WordSeparator.highlight": {
                     "type": "object",
                     "default": {},
+                    "scope": "machine",
                     "description": "%ext.config.defaults.WordSeparator.highlight.description%"
                 }
             }

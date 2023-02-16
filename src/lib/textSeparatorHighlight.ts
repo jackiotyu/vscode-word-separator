@@ -15,8 +15,8 @@ export class TextSeparatorHighlight {
     private _text?: string;
     private _range?: vscode.Range;
     private _textDecorationOptions: vscode.DecorationRenderOptions = {
-        border: '1px solid #33CCFF',
-        backgroundColor: '#33CCFF40',
+        border: '1px solid #bbbbbb80',
+        backgroundColor: '#bbbbbb10',
         rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
     };
     // 自定义配置

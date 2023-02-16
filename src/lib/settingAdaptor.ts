@@ -26,7 +26,7 @@ class ExtConfig {
     update(key: string, value: any) {
         return vscode.workspace
             .getConfiguration('WordSeparator')
-            .update(key, value);
+            .update(key, value, vscode.ConfigurationTarget.Global);
     }
     updateGroup(group: GroupCloseItem[]) {
         return this.update('group', group);
