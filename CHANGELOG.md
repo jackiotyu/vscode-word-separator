@@ -4,6 +4,12 @@ All notable changes to the "word-separator" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.0] - 2024-03-22
+
+### Feat
+
+- Add `reset` in panel and hover action.
+
 ## [0.0.9] - 2023-02-15
 
 ### Feat
