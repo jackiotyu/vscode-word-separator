@@ -5,8 +5,10 @@ import windowAdaptor from './windowAdaptor';
 import {
     COMMAND_TOGGLE_SEPARATOR,
     COMMAND_TOGGLE_RANGE_SEPARATOR,
+    COMMAND_RESET_SEPARATOR,
     EXTENSION_HOVER,
     HOVER,
+    DEFAULT_SEPARATORS,
 } from './constants';
 import localize from './localize';
 
@@ -79,6 +81,21 @@ export class SeparatorsHover {
                               `${[...rangeSeparators].join(' ')}`
                           );
                     windowAdaptor.showHoverInfo(tips);
+                }
+            )
+        );
+
+        context.subscriptions.push(
+            vscode.commands.registerCommand(
+                COMMAND_RESET_SEPARATOR,
+                (fromHover = true) => {
+                    separatorConfig.update(DEFAULT_SEPARATORS);
+                    const info = localize('hover.command.toggleRangeSeparator.reset', DEFAULT_SEPARATORS);
+                    if(fromHover) {
+                        windowAdaptor.showHoverInfo(info);
+                    } else {
+                        windowAdaptor.showPanelInfo(info);
+                    }
                 }
             )
         );

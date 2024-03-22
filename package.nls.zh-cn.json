@@ -13,6 +13,8 @@
     "hover.command.toggleRangeSeparator.enable.title": "激活当前位置的所有分隔符",
     "hover.command.toggleRangeSeparator.cancel": "取消分隔符成功，分隔符为 {0}",
     "hover.command.toggleRangeSeparator.cancel.title": "取消当前位置的所有分隔符",
+    "hover.command.toggleRangeSeparator.reset": "还原分隔符成功，分隔符为 {0}",
+    "hover.command.toggleRangeSeparator.reset.title": "还原分隔符设置",
     "ext.commands.separatorsManage.collapseAll.title": "折叠全部",
     "ext.commands.separatorsManage.expandAll.title": "展开全部",
     "ext.viewsContainers.activitybar.title": "分隔符管理",
@@ -30,5 +32,5 @@
     "ext.config.defaults.WordSeparator.silent.enum.panel": "禁用分隔符管理面板的消息通知",
     "ext.config.defaults.WordSeparator.silent.enum.hover": "禁用hover时各种操作的消息通知",
     "ext.config.defaults.WordSeparator.hover.description": "配置是否在hover时管理分隔符",
-    "ext.config.defaults.WordSeparator.highlight.description": "配置分隔符高亮效果,参考 https://vshaxe.github.io/vscode-extern/vscode/DecorationRenderOptions.html"
+    "ext.config.defaults.WordSeparator.highlight.description": "配置分隔符高亮效果,参考 https://vshaxe.github.io/vscode-extern/vscode/DecorationRenderOptions.html\n例如\n```json\n{\"border\":\"1px solid #bbbbbb80\",\"backgroundColor\":\"#bbbbbb10\"}\n```"
 }

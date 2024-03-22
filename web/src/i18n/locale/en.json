@@ -16,6 +16,7 @@
     },
     "explain": {
         "copyConfig": "Copy current rule",
+        "resetConfig": "Reset separators",
         "copySeparators": "Copy current active separators"
     },
     "form": {

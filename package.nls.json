@@ -13,6 +13,8 @@
     "hover.command.toggleRangeSeparator.enable.title": "Activates all separators for the current location",
     "hover.command.toggleRangeSeparator.cancel": "Canceling all separators succeeded, separators are {0}",
     "hover.command.toggleRangeSeparator.cancel.title": "Cancels all separators for the current location",
+    "hover.command.toggleRangeSeparator.reset": "Reset the separator settings succeeded, separators are {0}",
+    "hover.command.toggleRangeSeparator.reset.title": "Reset the separator settings",
     "ext.commands.separatorsManage.collapseAll.title": "Collapse all",
     "ext.commands.separatorsManage.expandAll.title": "Expand all",
     "ext.viewsContainers.activitybar.title": "Separators Explorer",
@@ -30,5 +32,5 @@
     "ext.config.defaults.WordSeparator.silent.enum.panel": "Disable message notifications for the Separator management panel",
     "ext.config.defaults.WordSeparator.silent.enum.hover": "Disable Message notifications for actions when hover",
     "ext.config.defaults.WordSeparator.hover.description": "Configure whether to manage separators when hovering",
-    "ext.config.defaults.WordSeparator.highlight.description": "Configure the separator highlighting effect, refer to https://vshaxe.github.io/vscode-extern/vscode/DecorationRenderOptions.html"
+    "ext.config.defaults.WordSeparator.highlight.description": "Configure the separator highlighting effect, refer to https://vshaxe.github.io/vscode-extern/vscode/DecorationRenderOptions.html\nfor example:\n```json\n{\"border\":\"1px solid #bbbbbb80\",\"backgroundColor\":\"#bbbbbb10\"}\n```"
 }

@@ -6,6 +6,7 @@ import {
     ExtPayload,
     MsgType,
     WebviewSettingMsg,
+    WebviewResetSettingMsg,
     WebviewSaveRuleMsg,
     WebviewCopySettingMsg,
     WebviewCopySeparatorsMsg,
@@ -60,6 +61,9 @@ type WebviewPayloadLike = Pick<WebviewPayload, 'type' | 'value'>;
  */
 export function sendMsg(
     message: Pick<WebviewSettingMsg, 'type'>
+): Promise<ExtSettingMsg>;
+export function sendMsg(
+    message: Pick<WebviewResetSettingMsg, 'type'>
 ): Promise<ExtSettingMsg>;
 export function sendMsg(
     message: Pick<WebviewSaveRuleMsg, 'type' | 'value'>

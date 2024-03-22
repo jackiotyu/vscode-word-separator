@@ -133,7 +133,7 @@
                     "type": "object",
                     "default": {},
                     "scope": "machine",
-                    "description": "%ext.config.defaults.WordSeparator.highlight.description%"
+                    "markdownDescription": "%ext.config.defaults.WordSeparator.highlight.description%"
                 }
             }
         },

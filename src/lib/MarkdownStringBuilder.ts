@@ -5,17 +5,22 @@ import localize from './localize';
 import {
     COMMAND_TOGGLE_SEPARATOR,
     COMMAND_TOGGLE_RANGE_SEPARATOR,
+    COMMAND_RESET_SEPARATOR,
 } from './constants';
 
 export class MarkdownStringBuilder {
     static readonly toggleCommandName = COMMAND_TOGGLE_SEPARATOR;
     static readonly toggleRangeCommandName = COMMAND_TOGGLE_RANGE_SEPARATOR;
+    static readonly resetCommandName = COMMAND_RESET_SEPARATOR;
 
     static readonly toggleRangeSeparatorEnableTitle = localize(
         `hover.command.toggleRangeSeparator.enable.title`
     );
     static readonly toggleRangeSeparatorCancelTitle = localize(
         `hover.command.toggleRangeSeparator.cancel.title`
+    );
+    static readonly toggleRangeSeparatorResetTitle = localize(
+        `hover.command.toggleRangeSeparator.reset.title`
     );
     static readonly toggleSeparatorTitle = localize(
         'hover.command.toggleSeparator.toggle'
@@ -37,11 +42,12 @@ export class MarkdownStringBuilder {
                 )
             )
             .join('&nbsp;&nbsp;');
+        const resetOptionString = MarkdownStringBuilder.getResetString();
 
         let markdownString = new vscode.MarkdownString(
             [
                 `**$(whole-word)** *${MarkdownStringBuilder.commandTitle}*`,
-                `${toggleOptionsString}`,
+                `${toggleOptionsString}&nbsp;&nbsp;${resetOptionString}`,
                 `${optionsString}`,
             ].join(`${splitStr}`),
             true
@@ -49,6 +55,17 @@ export class MarkdownStringBuilder {
         markdownString.supportHtml = true;
         markdownString.isTrusted = true;
         return markdownString;
+    }
+
+    static getResetString() {
+        const tips = JSON.stringify(
+            MarkdownStringBuilder.toggleRangeSeparatorResetTitle
+        );
+        const commandContent = encodeMarkdownCommand(
+            MarkdownStringBuilder.resetCommandName
+        );
+        const icon = '$(redo)';
+        return `**[${icon}](${commandContent} ${tips})**`;
     }
 
     static getToggleItemString(active: boolean, rangeSeparators: string) {

@@ -16,6 +16,7 @@
     },
     "explain": {
         "copyConfig": "复制当前分隔符配置",
+        "resetConfig": "重置分隔符配置",
         "copySeparators": "复制当前激活的分隔符"
     },
     "form": {

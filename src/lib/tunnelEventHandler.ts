@@ -11,6 +11,7 @@ import {
     handleAddItem,
     handleLocale,
     handleReload,
+    handleResetSetting,
 } from './processEvent';
 
 export default function tunnelEventHandler(
@@ -38,6 +39,8 @@ export default function tunnelEventHandler(
             return handleAddItem(tunnel, msg);
         case MsgType.LOCALE:
             return handleLocale(tunnel, msg);
+        case MsgType.RESET_SETTING:
+            return handleResetSetting(tunnel, msg);
         default:
             break;
     }

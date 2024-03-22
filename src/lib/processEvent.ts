@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import {
     WebviewSettingMsg,
+    WebviewResetSettingMsg,
     WebviewSaveRuleMsg,
     WebviewCopySettingMsg,
     WebviewToggleItemCheckedMsg,
@@ -19,6 +20,7 @@ import {
     getCloseGroup,
     toBaseItem
 } from './settingUtils';
+import { COMMAND_RESET_SEPARATOR } from './constants';
 import WebviewTunnel from './webviewTunnel';
 import windowAdaptor from './windowAdaptor';
 import { GroupCloseItem } from '../types';
@@ -31,6 +33,11 @@ export function handleReload(tunnel: WebviewTunnel) {
 export function handleSetting(tunnel: WebviewTunnel, msg: WebviewSettingMsg) {
     let setting = getSetting();
     tunnel.send({ ...msg, value: setting });
+}
+export function handleResetSetting(tunnel: WebviewTunnel, msg: WebviewResetSettingMsg) {
+    vscode.commands.executeCommand(COMMAND_RESET_SEPARATOR, false).then(() => {
+        tunnel.send({ ...msg, value: true });
+    });
 }
 export async function handleSaveRule(tunnel: WebviewTunnel, msg: WebviewSaveRuleMsg) {
     let success = true;

@@ -96,6 +96,14 @@
             <vscode-button
                 class="action-btn"
                 :disabled="loading"
+                @click="handleResetSeparators"
+                :title="$t('explain.resetConfig')"
+                >{{ $t('action.reset')
+                }}<span slot="start" class="codicon codicon-redo"></span
+            ></vscode-button>
+            <vscode-button
+                class="action-btn"
+                :disabled="loading"
                 @click="handleAddItem"
                 >{{ $t('action.addItem')
                 }}<span slot="start" class="codicon codicon-add"></span
@@ -140,6 +148,9 @@ export default {
         };
         const handleCopySeparators = () => {
             sendMsg({ type: MsgType.COPY_SEPARATORS });
+        };
+        const handleResetSeparators = () => {
+            sendMsg({ type: MsgType.RESET_SETTING });
         };
         const changeOpen = (index: number) => {
             let value = openList[index];
@@ -227,6 +238,7 @@ export default {
             handleAddItem,
             handleDeleteItem,
             handleCopySeparators,
+            handleResetSeparators,
             toggleSelected,
             wordSeparators,
             selectedSet,

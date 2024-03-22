@@ -13,6 +13,8 @@ export enum MsgType {
     SAVE_GROUP = 'saveGroup',
     /** 复制配置 */
     COPY_SETTING = 'copySetting',
+    /** 重置默认配置 */
+    RESET_SETTING = 'resetSetting',
     /** 复制分隔符 */
     COPY_SEPARATORS = 'copySeparators',
     /** 切换选中配置 */
@@ -25,7 +27,7 @@ export enum MsgType {
     ADD_ITEM = 'addItem',
     /** 语言环境 */
     LOCALE = 'locale',
-    TOGGLE_EXPAND = 'toggleExpand'
+    TOGGLE_EXPAND = 'toggleExpand',
 }
 
 // webview进程的type
@@ -42,6 +44,7 @@ export type LocaleType = 'en' | 'zh-cn';
 
 export type WebviewReloadMsg = GenPayload<MsgType.RELOAD, undefined>;
 export type WebviewSettingMsg = GenPayload<MsgType.SETTING, undefined>;
+export type WebviewResetSettingMsg = GenPayload<MsgType.RESET_SETTING, undefined>;
 export type WebviewSaveRuleMsg = GenPayload<MsgType.SAVE_RULE, string>;
 export type WebviewSaveGroupMsg = GenPayload<MsgType.SAVE_GROUP, GroupListType>;
 export type WebviewCopySettingMsg = GenPayload<MsgType.COPY_SETTING, undefined>;
@@ -72,8 +75,9 @@ export type ExtSettingMsg = GenPayload<
     }
 >;
 export type ExtSaveRuleMsg = GenPayload<MsgType.SAVE_RULE, boolean>;
-export type ExtSaveSaveGroupMsg = GenPayload<MsgType.SAVE_GROUP, boolean>;
+export type ExtSaveGroupMsg = GenPayload<MsgType.SAVE_GROUP, boolean>;
 export type ExtCopySettingMsg = GenPayload<MsgType.COPY_SETTING, boolean>;
+export type ExtResetSettingMsg = GenPayload<MsgType.RESET_SETTING, boolean>;
 export type ExtCopySeparatorsMsg = GenPayload<MsgType.COPY_SEPARATORS, boolean>;
 export type ExtToggleItemCheckedMsg = GenPayload<
     MsgType.TOGGLE_ITEM_CHECKED,
@@ -88,6 +92,7 @@ export type TOGGLE_EXPAND = GenPayload<MsgType.TOGGLE_EXPAND, boolean>;
 export type WebviewPayload =
     | WebviewReloadMsg
     | WebviewSettingMsg
+    | WebviewResetSettingMsg
     | WebviewSaveRuleMsg
     | WebviewSaveGroupMsg
     | WebviewCopySettingMsg
@@ -99,8 +104,9 @@ export type WebviewPayload =
     | WebviewLocaleMsg;
 export type ExtPayload =
     | ExtSettingMsg
+    | ExtResetSettingMsg
     | ExtSaveRuleMsg
-    | ExtSaveSaveGroupMsg
+    | ExtSaveGroupMsg
     | ExtCopySettingMsg
     | ExtToggleItemCheckedMsg
     | ExtEditItemMsg
