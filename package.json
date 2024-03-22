@@ -161,13 +161,14 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "yarn run package",
+        "vscode:prepublish": "pnpm run package",
+        "vsce:pack": "vsce package --no-dependencies",
         "compile": "webpack",
         "watch": "cross-env NODE_ENV=development concurrently \"npm --prefix web run serve\" \"webpack --watch\"",
         "package": "cross-env NODE_ENV=production concurrently \"npm --prefix web run build\" \"webpack --mode production --devtool hidden-source-map\"",
         "compile-tests": "tsc -p . --outDir out",
         "watch-tests": "tsc -p . -w --outDir out",
-        "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+        "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
         "lint": "eslint src --ext ts",
         "test": "node ./out/test/runTest.js"
     },
